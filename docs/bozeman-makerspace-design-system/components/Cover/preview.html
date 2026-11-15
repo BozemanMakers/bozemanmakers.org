@@ -1,0 +1,32 @@
+<!-- @dsCard height=320 -->
+<style>
+  html,body{margin:0;background:var(--paper);}
+  .cv{position:relative;width:960px;height:320px;overflow:hidden;background:var(--paper);}
+  .cv svg{position:absolute;inset:0;}
+  .enamel{fill:var(--enamel)} .ink{fill:var(--ink)} .tint{fill:var(--paper-2)} .brass{fill:var(--brass)} .stop{fill:var(--stop)}
+  .dot{fill:var(--rule)}
+  .hole{fill:var(--paper);stroke:var(--ink);stroke-width:2}
+  .name{position:absolute;left:40px;bottom:60px;max-width:440px;font-family:var(--font-display);font-weight:700;font-size:80px;line-height:.95;color:var(--ink);margin:0;letter-spacing:-.01em;}
+  .tag{position:absolute;left:40px;bottom:32px;max-width:440px;font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted);margin:0;}
+</style>
+<div class="cv">
+  <!-- blocks: enamel 168x272 slab, ink 216x160, brass 120x64 + 48x48, stop 96x48 (the stop button, kept small), paper-2 tint 216x112 field; all radius-0
+       arrangement: one tall machine-green slab bleeding off the top with satellites stacked like stock on a shelf, flush edges, right of x=480
+       pattern: sparse dot grid (precise / mono / engineering pad) at space-4 pitch in rule over the tint, plus punched holes (radius-hole) in the slab
+       scales: space-4 24px pitch, space-4 24px gaps, radius-0 corners, radius-hole holes, border-firm 2px -->
+  <svg width="960" height="320" viewBox="0 0 960 320" aria-hidden="true">
+    <defs><pattern id="gp" width="24" height="24" patternUnits="userSpaceOnUse"><circle class="dot" cx="12" cy="12" r="1.5"/></pattern></defs>
+    <rect class="tint" x="504" y="184" width="216" height="112"/>
+    <rect x="504" y="184" width="216" height="112" fill="url(#gp)"/>
+    <rect class="ink" x="504" y="0" width="216" height="160"/>
+    <rect class="enamel" x="744" y="0" width="168" height="272"/>
+    <circle class="hole" cx="828" cy="40" r="8"/>
+    <circle class="hole" cx="828" cy="232" r="8"/>
+    <rect class="brass" x="600" y="232" width="120" height="64"/>
+    <rect class="brass" x="912" y="272" width="48" height="48"/>
+    <rect class="stop" x="744" y="272" width="96" height="48"/>
+  </svg>
+  <h1 class="name">Bozeman Makerspace</h1>
+  <p class="tag">Shop Manual · a working design system</p>
+</div>
+<script></script>

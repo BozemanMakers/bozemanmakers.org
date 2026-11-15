@@ -1,0 +1,190 @@
+<!-- @dsCard group="Pages" height=3000 width=1200 subtitle="Homepage mock-up · placeholder copy" page -->
+<style>
+  .hp{width:1200px;background:var(--paper);color:var(--ink);font-family:var(--font-body);}
+  .hp *{box-sizing:border-box;}
+  .wrap{padding:0 48px;}
+  .hp h1,.hp h2,.hp h3{font-family:var(--font-display);margin:0;}
+  .hp p{margin:0;}
+  a{color:var(--enamel-ink);text-decoration-thickness:2px;text-underline-offset:3px;}
+  /* header */
+  .hd{display:flex;align-items:center;justify-content:space-between;padding:16px 48px;border-bottom:2px solid var(--ink);}
+  .hd{position:relative;z-index:2;height:96px;}
+  .hd .logo{position:relative;top:28px;height:152px;padding:0 8px;background:linear-gradient(transparent 0 92px,var(--paper) 92px 98px,transparent 98px);}
+  .hd .logo img{height:152px;display:block;}
+  .hero{padding-top:72px!important;}
+  .on-dark{display:none!important;} [data-theme="dark"] .on-dark{display:block!important;} [data-theme="dark"] .on-light{display:none!important;}
+  .nav{display:flex;align-items:center;gap:32px;font-family:var(--font-mono);font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;}
+  .nav a{color:var(--ink);text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;}
+  .nav a:hover{border-color:var(--enamel);}
+  /* hero */
+  .hero{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;padding:48px;border-bottom:2px solid var(--ink);}
+  .hero h1{font-size:72px;line-height:.98;letter-spacing:-.01em;margin:16px 0 24px;}
+  .hero h1 em{font-style:normal;color:var(--enamel-ink);}
+  .lede{font-size:20px;line-height:1.5;max-width:30em;margin-bottom:32px!important;}
+  .ctas{display:flex;gap:16px;align-items:center;flex-wrap:wrap;}
+  .photo{position:relative;border:2px solid var(--ink);background:var(--paper-2);min-height:420px;display:flex;align-items:center;justify-content:center;}
+  .photo::before,.photo::after{content:"";position:absolute;width:88px;height:24px;background:var(--brass);opacity:.85;border:1px solid var(--ink);}
+  .photo::before{top:-12px;left:24px;transform:rotate(-4deg);} .photo::after{bottom:-12px;right:24px;transform:rotate(3deg);}
+  .dim{position:absolute;font-family:var(--font-mono);font-size:12px;color:var(--ink-muted);}
+  .dim.w{left:0;right:0;bottom:-28px;text-align:center;border-top:1px solid var(--rule);padding-top:4px;}
+  .ph{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted);text-align:center;line-height:1.6;}
+  /* open strip */
+  .strip{display:grid;grid-template-columns:auto 1fr auto;gap:32px;align-items:center;padding:20px 48px;background:var(--ink);color:var(--paper);}
+  .strip .dot{width:12px;height:12px;border-radius:50%;background:var(--enamel);display:inline-block;margin-right:8px;box-shadow:0 0 0 3px var(--paper);}
+  .strip strong{font-family:var(--font-display);font-size:22px;}
+  .strip .data{font-family:var(--font-mono);font-size:14px;}
+  .strip a{color:var(--paper);}
+  /* sections */
+  .sec{padding:48px;border-bottom:2px solid var(--ink);}
+  .sechead{display:flex;justify-content:space-between;align-items:end;margin-bottom:32px;gap:24px;}
+  .sechead h2{font-size:40px;line-height:1.05;margin-top:8px;}
+  /* shop areas as drawer fronts */
+  .areas{display:grid;grid-template-columns:repeat(4,1fr);border:2px solid var(--ink);}
+  .area{padding:24px;border-right:2px solid var(--ink);display:flex;flex-direction:column;gap:12px;}
+  .area:last-child{border-right:0;}
+  .area .pull{width:48px;height:8px;border:2px solid var(--ink);border-radius:2px;margin:0 auto 8px;}
+  .area h3{font-size:24px;}
+  .area ul{list-style:none;padding:0;margin:0;font-family:var(--font-mono);font-size:13px;line-height:1.9;color:var(--ink-muted);}
+  .area ul li::before{content:"— ";color:var(--rule);}
+  .area .bin{margin-top:auto;font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--ink-muted);border-top:1px dashed var(--rule);padding-top:8px;}
+  /* classes */
+  .classes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:24px;}
+  .classes .bzm-card{max-width:none;}
+  /* membership parts list */
+  .parts{width:100%;border-collapse:collapse;border:2px solid var(--ink);}
+  .parts th{font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-align:left;color:var(--ink-muted);background:var(--paper-2);padding:12px 16px;border-bottom:2px solid var(--ink);}
+  .parts td{padding:20px 16px;border-bottom:1px solid var(--rule-faint);vertical-align:top;}
+  .parts tr:last-child td{border-bottom:0;}
+  .parts .no{font-family:var(--font-mono);font-size:13px;color:var(--ink-muted);width:110px;}
+  .parts .tier{font-family:var(--font-display);font-size:22px;font-weight:600;width:220px;}
+  .parts .price{font-family:var(--font-mono);font-size:18px;text-align:right;white-space:nowrap;}
+  .parts .price small{font-size:13px;color:var(--ink-muted);}
+  .parts tr.pick td{background:color-mix(in srgb,var(--enamel) 14%,var(--paper));}
+  /* two-col */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+  .hours{font-family:var(--font-mono);font-size:15px;width:100%;border-collapse:collapse;}
+  .hours td{padding:10px 0;border-bottom:1px dashed var(--rule);}
+  .hours td:last-child{text-align:right;}
+  /* footer */
+  .ft{background:var(--ink);color:var(--paper);padding:48px;display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:48px;}
+  .ft img{height:140px;display:block;}
+  .ft h4{font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin:0 0 12px;opacity:.75;}
+  .ft p,.ft li{font-size:15px;line-height:1.7;}
+  .ft ul{list-style:none;margin:0;padding:0;}
+  .ft a{color:var(--paper);}
+  .ft .fine{grid-column:1/-1;border-top:1px solid var(--ink-muted);padding-top:16px;font-family:var(--font-mono);font-size:12px;opacity:.75;display:flex;justify-content:space-between;}
+</style>
+<div class="hp">
+  <header class="hd">
+    <a class="logo" href="#"><img class="on-light" src="../../assets/Logos/shield-ink.svg" alt="Bozeman Makerspace, est. 2011"><img class="on-dark" src="../../assets/Logos/shield-paper.svg" alt="Bozeman Makerspace, est. 2011"></a>
+    <nav class="nav">
+      <a href="#">Classes</a><a href="#">The shop</a><a href="#">Membership</a><a href="#">Visit</a>
+      <button class="bzm-btn">Book a tour</button>
+    </nav>
+  </header>
+
+  <section class="hero bzm-gridpaper">
+    <div>
+      <span class="bzm-label">BZM-001 · Community workshop · Bozeman, MT</span>
+      <h1>Tools, space, and people who'll show you <em>how.</em></h1>
+      <p class="lede">A shared shop with a woodshop, metal tools, electronics benches, lasers, 3D printers and sewing machines. Bring a project, or don't. Someone here will have one you can help with.</p>
+      <div class="ctas">
+        <button class="bzm-btn bzm-btn--primary">Come to open shop</button>
+        <button class="bzm-btn">See what's in the shop</button>
+      </div>
+    </div>
+    <div class="photo">
+      <div class="ph">[ Photo: a member at the bandsaw,<br>real person, real sawdust ]</div>
+      <span class="dim w">← 4 : 3 →</span>
+    </div>
+  </section>
+
+  <div class="strip">
+    <span><span class="dot"></span><strong>Open shop tonight</strong></span>
+    <span class="data">Tue 6:00 – 9:00 pm · free · no membership needed to look around</span>
+    <a href="#">Directions →</a>
+  </div>
+
+  <section class="sec">
+    <div class="sechead">
+      <div><span class="bzm-label">BZM-100 · Inventory</span><h2>What's in the shop</h2></div>
+      <a href="#">Full tool list →</a>
+    </div>
+    <div class="areas">
+      <div class="area"><div class="pull"></div><span class="bzm-tag bzm-tag--wood">Woodshop</span><h3>Wood</h3><ul><li>Table saw</li><li>Bandsaw</li><li>Jointer &amp; planer</li><li>Lathe</li><li>Hand tools</li></ul><span class="bin">DRAWER 01</span></div>
+      <div class="area"><div class="pull"></div><span class="bzm-tag bzm-tag--metal">Metal</span><h3>Metal</h3><ul><li>MIG welder</li><li>Plasma cutter</li><li>Drill press</li><li>Grinders</li><li>Sheet brake</li></ul><span class="bin">DRAWER 02</span></div>
+      <div class="area"><div class="pull"></div><span class="bzm-tag bzm-tag--electronics">Electronics</span><h3>Electronics &amp; digital</h3><ul><li>Laser cutter</li><li>3D printers</li><li>CNC router</li><li>Soldering benches</li><li>Oscilloscope</li></ul><span class="bin">DRAWER 03</span></div>
+      <div class="area"><div class="pull"></div><span class="bzm-tag">Textiles</span><h3>Textiles</h3><ul><li>Sewing machines</li><li>Serger</li><li>Embroidery machine</li><li>Cutting table</li><li>Leather tools</li></ul><span class="bin">DRAWER 04</span></div>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-bottom:24px">
+    <div class="sechead">
+      <div><span class="bzm-label">BZM-200 · Schedule</span><h2>Upcoming classes</h2></div>
+      <a href="#">All classes →</a>
+    </div>
+    <div class="classes bzm-gridpaper" style="border:2px solid var(--ink)">
+      <article class="bzm-card bzm-card--featured">
+        <span class="bzm-tag bzm-tag--electronics">Electronics</span>
+        <h3 class="bzm-card__title">Solder your first kit</h3>
+        <p class="bzm-card__body">Build a blinking badge from a bag of parts. We supply irons, flux and patience.</p>
+        <div class="bzm-card__stub"><span>Thu 6:30 pm · $35</span><button class="bzm-btn bzm-btn--primary">Reserve</button></div>
+      </article>
+      <article class="bzm-card">
+        <span class="bzm-tag bzm-tag--wood">Woodshop</span>
+        <h3 class="bzm-card__title">Table saw checkout</h3>
+        <p class="bzm-card__body">The safety sign-off you need before using the SawStop on your own.</p>
+        <div class="bzm-card__stub"><span>Sat 10:00 am · free</span><button class="bzm-btn">Sign up</button></div>
+      </article>
+      <article class="bzm-card">
+        <span class="bzm-tag bzm-tag--stop">2 seats left</span>
+        <h3 class="bzm-card__title">Intro to MIG welding</h3>
+        <p class="bzm-card__body">Lay your first beads, then weld a small steel tray to take home.</p>
+        <div class="bzm-card__stub"><span>Sun 1:00 pm · $60</span><button class="bzm-btn">Sign up</button></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sechead">
+      <div><span class="bzm-label">BZM-300 · Parts list</span><h2>Membership</h2></div>
+      <span class="bzm-label">Prices are placeholders</span>
+    </div>
+    <table class="parts">
+      <thead><tr><th>Part no.</th><th>Tier</th><th>What you get</th><th style="text-align:right">Price</th></tr></thead>
+      <tbody>
+        <tr><td class="no">BZM-301</td><td class="tier">Day pass</td><td>One day in the shop with a member on hand. Good for a single project or trying it out.</td><td class="price">$15 <small>/ day</small></td></tr>
+        <tr class="pick"><td class="no">BZM-302</td><td class="tier">Member</td><td>24/7 key-fob access after orientation, a storage shelf, and member pricing on classes.</td><td class="price">$60 <small>/ mo</small></td></tr>
+        <tr><td class="no">BZM-303</td><td class="tier">Student / low-income</td><td>Everything a member gets. No proof needed; we trust you.</td><td class="price">$30 <small>/ mo</small></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="sec">
+    <div class="two">
+      <div>
+        <span class="bzm-label">BZM-400 · Visit</span>
+        <h2 style="font-size:40px;margin:8px 0 24px">Come by</h2>
+        <table class="hours">
+          <tr><td>Open shop (anyone)</td><td>Tue 6 – 9 pm</td></tr>
+          <tr><td>Staffed hours</td><td>Sat 10 am – 4 pm</td></tr>
+          <tr><td>Members</td><td>24 / 7</td></tr>
+          <tr><td>Address</td><td>[ Street address ]</td></tr>
+        </table>
+      </div>
+      <div style="display:grid;gap:24px;padding-top:40px">
+        <aside class="bzm-note"><div class="bzm-note__stripe"></div><div class="bzm-note__body"><strong>Closed-toe shoes in the shop, always.</strong>Safety glasses hang by the door. Long hair tied back near anything that spins.</div></aside>
+        <aside class="bzm-note bzm-note--info"><div class="bzm-note__stripe"></div><div class="bzm-note__body"><strong>Parking is around back.</strong>Use the side door with the saw-blade sign.</div></aside>
+      </div>
+    </div>
+  </section>
+
+  <footer class="ft">
+    <div><img class="on-light" src="../../assets/Logos/shield-paper.svg" alt="Bozeman Makerspace"><img class="on-dark" src="../../assets/Logos/shield-ink.svg" alt="Bozeman Makerspace"></div>
+    <div><h4>The shop</h4><ul><li><a href="#">Classes</a></li><li><a href="#">Tool list</a></li><li><a href="#">Shop rules</a></li></ul></div>
+    <div><h4>Join in</h4><ul><li><a href="#">Membership</a></li><li><a href="#">Volunteer</a></li><li><a href="#">Donate tools</a></li></ul></div>
+    <div><h4>Say hello</h4><p>[ email ]<br>[ street address ]<br>Bozeman, Montana</p></div>
+    <div class="fine"><span>A volunteer-run nonprofit since 2011.</span><span>BZM · made in the shop</span></div>
+  </footer>
+</div>
+<script></script>
