@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+
+import { microcopy } from '../content/microcopy';
+import { wiki } from '../data/wiki';
+
+const meta = microcopy.meta.notFound;
+---
+
+<Base title={meta.title} description={meta.description} noindex>
+  <div class="not-found">
+    <!-- source: docs/01-current-site-audit.md §4.2 (404 title) -->
+    <h1>Page not found</h1>
+    <ul class="link-list">
+      <li><a href="/">Home</a></li>
+      <li><a href="/tools/">Tools</a></li>
+      <li><a href="/organization/">Organization</a></li>
+      <li><a href="/contact/">Contact</a></li>
+      <li>
+        <a href={wiki.home} target="_blank" rel="noopener">Wiki ↗</a>
+      </li>
+    </ul>
+  </div>
+</Base>

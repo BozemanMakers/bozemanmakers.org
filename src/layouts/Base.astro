@@ -1,0 +1,96 @@
+---
+import '@fontsource/zilla-slab/600.css';
+import '@fontsource/zilla-slab/700.css';
+import '@fontsource/source-serif-4/400.css';
+import '@fontsource/source-serif-4/600.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
+
+import '../styles/tokens.css';
+import '../styles/components.css';
+import '../styles/site.css';
+
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { org } from '../data/org';
+import { wiki } from '../data/wiki';
+import { microcopy } from '../content/microcopy';
+
+interface Props {
+  title: string;
+  description: string;
+  noindex?: boolean;
+}
+
+const { title, description, noindex = false } = Astro.props;
+
+const site = Astro.site ?? new URL('https://bozemanmakers.org');
+const canonical = new URL(Astro.url.pathname, site);
+
+// 1200x630 social card, cropped from the shop photo.
+const ogImageUrl = new URL('/og.jpg', site);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'NGO',
+  name: org.name,
+  url: site.href,
+  email: org.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: org.address.street,
+    addressLocality: org.address.city,
+    addressRegion: org.address.region,
+    postalCode: org.address.postalCode,
+    addressCountry: org.address.country,
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: 'Thursday',
+      opens: '18:30',
+      closes: '20:00',
+    },
+  ],
+  sameAs: [org.facebook, org.photos, wiki.home],
+};
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#e8e6da" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={org.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:alt" content={microcopy.alt.hero} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">{microcopy.aria.skip}</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,55 @@
+---
+import Note from './Note.astro';
+import TierTable from './TierTable.astro';
+import { org } from '../data/org';
+
+interface Props {
+  headingLevel?: 2 | 3;
+}
+
+const { headingLevel = 3 } = Astro.props;
+---
+
+<div class="membership-panel">
+  <!-- source: archive/home.md:L30-L31 -->
+  <div class="prose">
+    <p>
+      <strong>Interested in joining the Makerspace?</strong> Come tour the
+      Makerspace during a Thursday evening Open Build event (check our
+      calendar). We can answer any questions you might have at that time.
+    </p>
+  </div>
+
+  <!-- source: archive/home.md:L33-L34 -->
+  <Note tone="info">
+    <p>
+      Members will need a signed <a href={org.releaseForm}>Release Form</a> (PDF,
+      76 KB), and must be 18 or older. Kids are welcome with their parents.
+    </p>
+  </Note>
+
+  <!-- source: archive/home.md:L36-L37 -->
+  <div class="prose">
+    <p>
+      We handle new member walkthroughs and key fob sign-out at Thursday
+      evening Open Build events. If you sign up for a membership, please plan
+      on attending the next Open Build.
+    </p>
+  </div>
+
+  {
+    headingLevel === 2 ? (
+      <h2 id="sign-up">Sign Up</h2>
+    ) : (
+      <h3 id="sign-up">Sign Up</h3>
+    )
+  }
+
+  <TierTable />
+
+  <!-- source: archive/home.md:L71-L75 -->
+  <p><a href={org.memberful.portal}>Manage My Membership</a></p>
+  <p>
+    <em>Having trouble? <a href="/contact/">Contact an officer</a> for assistance.</em>
+  </p>
+</div>

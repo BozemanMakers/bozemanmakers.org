@@ -1,0 +1,16 @@
+---
+interface Props {
+  tone?: 'info';
+  title?: string;
+}
+
+const { tone, title } = Astro.props;
+---
+
+<aside class:list={['bzm-note', tone === 'info' && 'bzm-note--info']}>
+  <div class="bzm-note__stripe"></div>
+  <div class="bzm-note__body">
+    {title && <strong>{title}</strong>}
+    <slot />
+  </div>
+</aside>

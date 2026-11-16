@@ -1,0 +1,23 @@
+---
+import { org } from '../data/org';
+---
+
+<table class="hours">
+  <tbody>
+    <tr>
+      <th scope="row">{org.hours.publicLabel}</th>
+      <td>{org.hours.public}</td>
+    </tr>
+    <tr>
+      <th scope="row">{org.hours.membersLabel}</th>
+      <td>{org.hours.members}</td>
+    </tr>
+    <tr>
+      <th scope="row">Location</th>
+      <td>
+        <a href={org.mapUrl}>{org.address.display}</a><br />
+        {org.address.note}
+      </td>
+    </tr>
+  </tbody>
+</table>

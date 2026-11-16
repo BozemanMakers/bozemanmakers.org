@@ -1,0 +1,79 @@
+---
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+import HoursTable from '../components/HoursTable.astro';
+import Note from '../components/Note.astro';
+
+import { org } from '../data/org';
+import { wiki } from '../data/wiki';
+import { microcopy } from '../content/microcopy';
+
+const meta = microcopy.meta.contact;
+---
+
+<Base title={meta.title} description={meta.description}>
+  <div class="page-intro">
+    <h1>Contact</h1>
+    <!-- source: archive/contact.md:L14; typo fix: "Send a questions" -> "Send questions" -->
+    <p>
+      Send questions or comments to the Bozeman Makerspace Officers. We try to
+      respond as quickly as possible. Thank you.
+    </p>
+  </div>
+
+  <section class="section" aria-label="Contact">
+    <div class="contact-grid">
+      <!-- TODO(copy): privacy note near the form (decision D13). -->
+      <form class="contact-form" action="/api/contact" method="post">
+        <label for="name">
+          {microcopy.form.name}
+          <span class="required">{microcopy.form.required}</span>
+        </label>
+        <input id="name" name="name" type="text" autocomplete="name" required />
+
+        <label for="email">
+          {microcopy.form.email}
+          <span class="required">{microcopy.form.required}</span>
+        </label>
+        <input id="email" name="email" type="email" autocomplete="email" required />
+
+        <label for="message">{microcopy.form.message}</label>
+        <textarea id="message" name="message" required></textarea>
+
+        <div class="honeypot" aria-hidden="true">
+          <label for="company">{microcopy.form.honeypot}</label>
+          <input
+            id="company"
+            name="company"
+            type="text"
+            tabindex="-1"
+            autocomplete="off"
+          />
+        </div>
+
+        <div>
+          <Button type="submit" variant="primary">{microcopy.form.submit}</Button>
+        </div>
+      </form>
+
+      <div class="contact-card">
+        <p class="bzm-label">E-mail</p>
+        <p><a href={`mailto:${org.email}`}>{org.email}</a></p>
+        <HoursTable />
+      </div>
+    </div>
+
+    <!-- source: wiki:faq (via docs/08-mvp-build-plan.md §3) -->
+    <div class="tools-note">
+      <Note tone="info">
+        <p>Post a request in the #class-requests channel on Slack.</p>
+      </Note>
+    </div>
+
+    <p>
+      <a href={wiki.faq} target="_blank" rel="noopener">
+        Frequently Asked Questions ↗
+      </a>
+    </p>
+  </section>
+</Base>

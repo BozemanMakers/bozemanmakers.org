@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+
+import { microcopy } from '../content/microcopy';
+
+const meta = microcopy.meta.thankYou;
+---
+
+<Base title={meta.title} description={meta.description} noindex>
+  <div class="page-intro">
+    <!-- source: archive/thank-you.md:L12 -->
+    <h1>Thank You</h1>
+  </div>
+
+  <section class="section">
+    <div class="prose">
+      <!-- source: archive/thank-you.md:L14-L16 -->
+      <p>
+        Thank you for supporting the Bozeman Makerspace. We hope to see you down
+        at the Makerspace soon.
+      </p>
+      <p>Happy Making!</p>
+    </div>
+
+    <div class="cta-row">
+      <!-- source: archive/thank-you.md:L18 -->
+      <Button href="/">Go back to homepage</Button>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,83 @@
+/* Bozeman Makerspace — generated from tokens.json */
+
+:root, [data-theme="light"] {
+  --paper: #e8e6da;
+  --paper-2: #dcd9ca;
+  --ink: #20231f;
+  --ink-muted: #58584f;
+  --rule: #7d7c6a;
+  --rule-faint: #c9c6b4;
+  --enamel: #5d7a68;
+  --enamel-deep: #4a6656;
+  --on-enamel: #f3f1e7;
+  --enamel-ink: #4a6656;
+  --stop: #b33a2c;
+  --brass: #b08d3c;
+  --brass-ink: #7a5f22;
+  --on-brass: #20231f;
+  --gauge: #3d5a73;
+  --shadow-block: 3px 3px 0 #20231f;
+  --shadow-none: none;
+}
+[data-theme="dark"] {
+  --paper: #1c1e1b;
+  --paper-2: #27292a;
+  --ink: #e8e6da;
+  --ink-muted: #a7a593;
+  --rule: #6c6b5e;
+  --rule-faint: #34362f;
+  --enamel: #8fb39c;
+  --enamel-deep: #8fb39c;
+  --on-enamel: #1c1e1b;
+  --enamel-ink: #8fb39c;
+  --stop: #e8806f;
+  --brass: #d4b25e;
+  --brass-ink: #d4b25e;
+  --on-brass: #1c1e1b;
+  --gauge: #8fb0cc;
+  --shadow-block: 3px 3px 0 #000000;
+  --shadow-none: none;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #1c1e1b;
+    --paper-2: #27292a;
+    --ink: #e8e6da;
+    --ink-muted: #a7a593;
+    --rule: #6c6b5e;
+    --rule-faint: #34362f;
+    --enamel: #8fb39c;
+    --enamel-deep: #8fb39c;
+    --on-enamel: #1c1e1b;
+    --enamel-ink: #8fb39c;
+    --stop: #e8806f;
+    --brass: #d4b25e;
+    --brass-ink: #d4b25e;
+    --on-brass: #1c1e1b;
+    --gauge: #8fb0cc;
+    --shadow-block: 3px 3px 0 #000000;
+    --shadow-none: none;
+  }
+}
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 48px;
+  --radius-0: 0px;
+  --radius-1: 2px;
+  --radius-hole: 50%;
+  --border-hair: 1px;
+  --border-firm: 2px;
+  --font-display: "Zilla Slab", "Rockwell", "Roboto Slab", Georgia, serif;
+  --font-body: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Courier New", monospace;
+}
+.display-xl { font-family: var(--font-display); font-size: 56px; line-height: 1.0; font-weight: 700; letter-spacing: -0.01em; }
+.heading { font-family: var(--font-display); font-size: 32px; line-height: 1.1; font-weight: 700; }
+.subheading { font-family: var(--font-display); font-size: 22px; line-height: 1.2; font-weight: 600; }
+.body { font-family: var(--font-body); font-size: 17px; line-height: 1.55; font-weight: 400; }
+.body-small { font-family: var(--font-body); font-size: 15px; line-height: 1.5; font-weight: 400; }
+.label { font-family: var(--font-mono); font-size: 12px; line-height: 1.3; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+.data { font-family: var(--font-mono); font-size: 14px; line-height: 1.4; font-weight: 400; }

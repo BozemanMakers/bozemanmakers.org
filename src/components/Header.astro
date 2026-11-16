@@ -1,0 +1,25 @@
+---
+import Shield from './Shield.astro';
+import NavLinks from './NavLinks.astro';
+import { org } from '../data/org';
+import { microcopy } from '../content/microcopy';
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="/" aria-label={`${org.name} home`}>
+      <Shield />
+    </a>
+
+    <nav class="nav nav--desktop" aria-label={microcopy.aria.primaryNav}>
+      <NavLinks />
+    </nav>
+
+    <details class="menu">
+      <summary class="bzm-btn">Menu</summary>
+      <nav class="nav" aria-label={microcopy.aria.primaryNav}>
+        <NavLinks />
+      </nav>
+    </details>
+  </div>
+</header>

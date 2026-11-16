@@ -1,0 +1,51 @@
+---
+import Shield from './Shield.astro';
+import { org } from '../data/org';
+import { wiki } from '../data/wiki';
+import { microcopy } from '../content/microcopy';
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <Shield />
+      <p class="footer-name">{org.name}</p>
+    </div>
+
+    <nav class="footer-nav" aria-label={microcopy.aria.footerNav}>
+      <ul>
+        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/organization/">Organization</a></li>
+        <li><a href="/contact/">Contact</a></li>
+        <li><a href="/membership/">Sign Up</a></li>
+        <li><a href={wiki.faq} target="_blank" rel="noopener">FAQ ↗</a></li>
+        <li><a href={wiki.policies} target="_blank" rel="noopener">Policies ↗</a></li>
+        <li><a href={org.facebook} target="_blank" rel="noopener">Facebook ↗</a></li>
+        <li><a href={org.photos} target="_blank" rel="noopener">Photos ↗</a></li>
+        <li><a href={wiki.home} target="_blank" rel="noopener">Wiki ↗</a></li>
+      </ul>
+    </nav>
+
+    <div class="footer-contact">
+      <p class="bzm-label">Location</p>
+      <p>
+        <a href={org.mapUrl}>{org.address.display}</a><br />
+        {org.address.note}
+      </p>
+
+      <p class="bzm-label">E-mail</p>
+      <p><a href={`mailto:${org.email}`}>{org.email}</a></p>
+
+      <p class="bzm-label">{org.hours.publicLabel}</p>
+      <p>
+        {org.hours.public}<br />
+        {org.hours.membersLabel}: {org.hours.members}
+      </p>
+    </div>
+  </div>
+
+  <div class="footer-fine">
+    <span>{org.name}</span>
+    <span>Est. 2011</span>
+  </div>
+</footer>

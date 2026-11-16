@@ -1,0 +1,154 @@
+// Cloudflare Pages Function: POST /api/contact
+// Honeypot + best-effort rate limit + optional Turnstile, then Resend.
+// Environment variables (set in the Pages project, not in the repo):
+//   RESEND_API_KEY, CONTACT_TO, CONTACT_FROM, TURNSTILE_SECRET_KEY (optional)
+
+interface Env {
+  RESEND_API_KEY?: string;
+  CONTACT_TO?: string;
+  CONTACT_FROM?: string;
+  TURNSTILE_SECRET_KEY?: string;
+}
+
+interface Context {
+  request: Request;
+  env: Env;
+}
+
+const LIMITS = { name: 200, email: 320, message: 5000 };
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+const RATE_MAX = 5;
+
+// Best-effort only: one Map per worker isolate. It is not a durable rate limit.
+const hits = new Map<string, { count: number; reset: number }>();
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = hits.get(ip);
+  if (!entry || now > entry.reset) {
+    hits.set(ip, { count: 1, reset: now + RATE_WINDOW_MS });
+    return false;
+  }
+  entry.count += 1;
+  return entry.count > RATE_MAX;
+}
+
+function clean(value: FormDataEntryValue | null): string {
+  return typeof value === 'string' ? value.trim() : '';
+}
+
+function escapeHtml(value: string): string {
+  const map: Record<string, string> = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  };
+  return value.replace(/[&<>"']/g, (char) => map[char] ?? char);
+}
+
+function errorPage(message: string, status = 400): Response {
+  return new Response(
+    `<!doctype html><html lang="en"><meta charset="utf-8"><title>Message not sent</title>` +
+      `<body><h1>Message not sent</h1><p>${escapeHtml(message)}</p>` +
+      `<p><a href="/contact/">Back to contact</a></p></body></html>`,
+    { status, headers: { 'content-type': 'text/html; charset=utf-8' } },
+  );
+}
+
+export async function onRequestPost(context: Context): Promise<Response> {
+  const { request, env } = context;
+  const ip = request.headers.get('CF-Connecting-IP') ?? 'unknown';
+
+  if (isRateLimited(ip)) {
+    return errorPage('Too many messages. Please try again later.', 429);
+  }
+
+  const form = await request.formData();
+
+  // Honeypot: real people leave this empty. Pretend it worked.
+  if (clean(form.get('company'))) {
+    return new Response(null, { status: 303, headers: { Location: '/thank-you/' } });
+  }
+
+  const name = clean(form.get('name'));
+  const email = clean(form.get('email'));
+  const message = clean(form.get('message'));
+
+  if (!name || !email || !message) {
+    return errorPage('Please fill in your name, email and message.');
+  }
+  if (
+    name.length > LIMITS.name ||
+    email.length > LIMITS.email ||
+    message.length > LIMITS.message
+  ) {
+    return errorPage('That message is too long.');
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return errorPage('Please enter a valid email address.');
+  }
+
+  // Optional Turnstile. Only enable it when the widget is on the page and the
+  // secret is set; otherwise every submission would fail verification.
+  if (env.TURNSTILE_SECRET_KEY) {
+    const token = clean(form.get('cf-turnstile-response'));
+    if (!token) {
+      return errorPage('Please complete the verification and try again.');
+    }
+
+    const verify = await fetch(
+      'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+      {
+        method: 'POST',
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          secret: env.TURNSTILE_SECRET_KEY,
+          response: token,
+          remoteip: ip,
+        }),
+      },
+    );
+    const result = (await verify.json()) as { success?: boolean };
+    if (!result.success) {
+      return errorPage('Verification failed. Please try again.');
+    }
+  }
+
+  if (!env.RESEND_API_KEY || !env.CONTACT_TO || !env.CONTACT_FROM) {
+    return errorPage('The contact form is not configured yet.', 503);
+  }
+
+  const subject = `Website contact from ${name}`.replace(/[\r\n]+/g, ' ');
+  const text = `Name: ${name}\nEmail: ${email}\n\n${message}`;
+
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      authorization: `Bearer ${env.RESEND_API_KEY}`,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      from: env.CONTACT_FROM,
+      to: [env.CONTACT_TO],
+      reply_to: email,
+      subject,
+      text,
+    }),
+  });
+
+  if (!res.ok) {
+    console.error('Resend error', res.status, await res.text());
+    return errorPage('The message could not be sent. Please email us instead.', 502);
+  }
+
+  return new Response(null, { status: 303, headers: { Location: '/thank-you/' } });
+}
+
+export async function onRequest(): Promise<Response> {
+  return new Response('Method not allowed', {
+    status: 405,
+    headers: { Allow: 'POST' },
+  });
+}

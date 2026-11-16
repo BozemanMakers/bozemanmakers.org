@@ -1,0 +1,36 @@
+---
+interface Props {
+  href?: string;
+  type?: 'button' | 'submit';
+  variant?: 'primary' | 'quiet';
+  external?: boolean;
+  class?: string;
+}
+
+const { href, type = 'button', variant, external = false, class: className } = Astro.props;
+const classes = [
+  'bzm-btn',
+  variant === 'primary' && 'bzm-btn--primary',
+  variant === 'quiet' && 'bzm-btn--quiet',
+  className,
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+{
+  href ? (
+    <a
+      class={classes}
+      href={href}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noopener' : undefined}
+    >
+      <slot />
+    </a>
+  ) : (
+    <button class={classes} type={type}>
+      <slot />
+    </button>
+  )
+}

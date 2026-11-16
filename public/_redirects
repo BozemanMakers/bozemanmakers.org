@@ -1,0 +1,26 @@
+# Retired content
+/hebocon/                 /                                       301
+/hebocon                  /                                       301
+
+# WordPress-era aliases
+/home                     /                                       301
+/index.php                /                                       301
+/feed/                    /                                       301
+/comments/feed/           /                                       301
+/author/robl015/          /                                       301
+/news-sitemap.xml         /                                       301
+/osd.xml                  /                                       301
+
+# WordPress-only endpoints
+/wp-admin/*               /                                       301
+/wp-login.php             /                                       301
+/wp-signup.php            /                                       301
+/wp-json/*                /                                       301
+/xmlrpc.php               /                                       301
+
+# Trailing-slash normalisation (Cloudflare Pages also does this)
+/tools                    /tools/                                 301
+/organization             /organization/                          301
+/contact                  /contact/                               301
+/thank-you                /thank-you/                             301
+/membership               /membership/                            301

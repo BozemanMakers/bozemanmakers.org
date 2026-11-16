@@ -1,0 +1,25 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  id?: string;
+  anchors?: readonly string[];
+  tone?: 'wood' | 'electronics' | 'metal';
+  external?: boolean;
+}
+
+const { href, title, id, anchors = [], tone, external = true } = Astro.props;
+---
+
+<article class:list={['bzm-card', 'tool-card', tone && `tool-card--${tone}`]} id={id}>
+  {anchors.map((anchor) => <span id={anchor} aria-hidden="true"></span>)}
+  <a
+    class="tool-card__link"
+    href={href}
+    target={external ? '_blank' : undefined}
+    rel={external ? 'noopener' : undefined}
+  >
+    <h3 class="bzm-card__title">{title}</h3>
+    <span class="bzm-label">wiki</span>
+  </a>
+</article>

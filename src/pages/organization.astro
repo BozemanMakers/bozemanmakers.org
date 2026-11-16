@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+import Bylaws from '../content/bylaws.md';
+
+import { wiki } from '../data/wiki';
+import { microcopy } from '../content/microcopy';
+
+const meta = microcopy.meta.organization;
+
+const articles = [
+  ['article-1-name-and-purpose', 'ARTICLE 1 -- Name and purpose'],
+  ['article-2-membership', 'ARTICLE 2 -- Membership'],
+  ['article-3-meetings', 'Article 3 -- Meetings'],
+  ['article-4-officers', 'ARTICLE 4 -- Officers'],
+  ['article-5-amendment-of-bylaws', 'ARTICLE 5 -- Amendment of Bylaws'],
+  ['article-6-certification', 'ARTICLE 6 -- Certification'],
+] as const;
+
+const officers = [
+  ['President', 'Madison Swords'],
+  ['Vice President', 'Sam Koepnick'],
+  ['Treasurer', 'Spencer Cornish'],
+  ['Secretary', 'Brett Thompson'],
+] as const;
+---
+
+<Base title={meta.title} description={meta.description}>
+  <div class="page-intro">
+    <h1>Organization</h1>
+    <!-- source: archive/organization.md:L17 -->
+    <p>The Bozeman Makerspace is a 501(c)(3) nonprofit organization.</p>
+  </div>
+
+  <section class="section" aria-labelledby="2026-officers">
+    <!-- source: archive/organization.md:L19-L25 -->
+    <h2 id="2026-officers">2026 Officers</h2>
+    <table class="officers">
+      <caption class="visually-hidden">2026 Officers</caption>
+      <tbody>
+        {
+          officers.map(([role, name]) => (
+            <tr>
+              <th scope="row">{role}</th>
+              <td>{name}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+    <p>
+      <a href={wiki.currentOfficers} target="_blank" rel="noopener">
+        Current Officers ↗
+      </a>
+    </p>
+  </section>
+
+  <section class="section" aria-labelledby="bylaws">
+    <!-- source: archive/organization.md:L27 -->
+    <h2 id="bylaws">Bylaws</h2>
+
+    <nav class="toc" aria-label={microcopy.aria.bylawsNav}>
+      <ol>
+        {
+          articles.map(([id, label]) => (
+            <li>
+              <a href={`#${id}`}>{label}</a>
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+
+    <!-- source: docs/archive/organization.md (verbatim; heading markup only) -->
+    <div class="bylaws">
+      <Bylaws />
+    </div>
+  </section>
+</Base>

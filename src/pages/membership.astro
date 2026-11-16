@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import MembershipPanel from '../components/MembershipPanel.astro';
+
+import { microcopy } from '../content/microcopy';
+
+const meta = microcopy.meta.membership;
+---
+
+<Base title={meta.title} description={meta.description}>
+  <div class="page-intro">
+    <!-- source: archive/home.md:L28 -->
+    <h1>Membership</h1>
+  </div>
+
+  <section class="section" aria-labelledby="sign-up">
+    <MembershipPanel headingLevel={2} />
+  </section>
+</Base>

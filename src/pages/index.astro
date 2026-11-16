@@ -1,0 +1,155 @@
+---
+import { Image } from 'astro:assets';
+import hero from '../assets/hero.jpg';
+
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+import HoursTable from '../components/HoursTable.astro';
+import MembershipPanel from '../components/MembershipPanel.astro';
+import Note from '../components/Note.astro';
+import WikiLink from '../components/WikiLink.astro';
+
+import { org } from '../data/org';
+import { wiki } from '../data/wiki';
+import { microcopy } from '../content/microcopy';
+
+const meta = microcopy.meta.home;
+---
+
+<Base title={meta.title} description={meta.description}>
+  <!-- source: archive/home.md:L12-L14 -->
+  <section class="hero bzm-gridpaper">
+    <div>
+      <p class="bzm-label">{org.tagline}</p>
+      <h1>Welcome</h1>
+      <p class="hero-address">
+        <a href={org.mapUrl}>{org.address.display}</a><br />
+        {org.address.note}
+      </p>
+      <!-- source: archive/home.md:L39 -->
+      <div class="cta-row">
+        <Button href="/membership/" variant="primary">Sign Up</Button>
+      </div>
+    </div>
+
+    <div class="hero-photo">
+      <Image
+        src={hero}
+        alt={microcopy.alt.hero}
+        widths={[480, 720, 960, 1280]}
+        sizes="(min-width: 900px) 48vw, 100vw"
+        quality={60}
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <!-- source: footer hours line, docs/01-current-site-audit.md:L155-L156 -->
+  <div class="strip">
+    <span><span class="dot"></span><strong>{org.hours.publicLabel}</strong></span>
+    <span class="data">
+      {org.hours.public} · {org.hours.membersLabel}: {org.hours.members}
+    </span>
+    <a href={org.mapUrl}>{org.address.display}</a>
+  </div>
+
+  <section class="section" aria-labelledby="about">
+    <!-- source: archive/home.md:L12 (site name) -->
+    <h2 id="about">{org.name}</h2>
+    <div class="prose">
+      <!-- source: archive/home.md:L16-L24 -->
+      <p>
+        The Bozeman Makerspace is a <a
+          href="http://en.wikipedia.org/wiki/Makerspace">Makerspace</a
+        > located in Bozeman, MT. If you have an interest in making or modding
+        things, or just want to learn how things work, this is the place for
+        you.
+      </p>
+      <p>
+        Our Makerspace is a workshop combined with a meeting space where people
+        of similar interests or skills can converge to create, modify, learn,
+        talk and build.
+      </p>
+      <p>
+        A Makerspace allows groups of people to pool resources and create a
+        community of people with varied interests. These interests may include
+        but are definitely not limited to: circuitry, robotics, soldering,
+        woodworking, fabricating, programming, networking, hacking, bending,
+        etc.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="visit">
+    <!-- source: footer label, docs/01-current-site-audit.md:L155 -->
+    <h2 id="visit">{org.hours.publicLabel}</h2>
+    <div class="two-col">
+      <HoursTable />
+      <!-- source: wiki:faq -->
+      <Note tone="info" title="Open Build">
+        <p>
+          We are open to the public on Thursdays from 6:30 to 8:00 PM. Anyone
+          can tour or use our non-restricted tools. Members have 24/7 access.
+        </p>
+      </Note>
+    </div>
+  </section>
+
+  <section class="section" id="membership" aria-labelledby="membership-heading">
+    <!-- source: archive/home.md:L28-L75 -->
+    <h2 id="membership-heading">Membership</h2>
+    <MembershipPanel />
+  </section>
+
+  <section class="section" aria-labelledby="events">
+    <div class="section__head">
+      <!-- source: archive/home.md:L79-L81 -->
+      <h2 id="events">Upcoming Events</h2>
+      <Button href={org.mailerlite} external>
+        Subscribe for Class and Workshop Announcements
+      </Button>
+    </div>
+    <div class="calendar">
+      <iframe
+        src={org.calendarEmbed}
+        title={microcopy.aria.calendar}
+        loading="lazy"
+        height="600"
+      ></iframe>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="donate">
+    <!-- source: archive/home.md:L85-L95; links fixed per docs/08-mvp-build-plan.md §3 -->
+    <h2 id="donate">Donate</h2>
+    <div class="prose">
+      <p>
+        Would you like to make a tax deductible donation to the Bozeman
+        Makerspace? Please do so using the PayPal button below. Any amount is
+        helpful to keeping the space open and operating. Check or cash donations
+        are also accepted at Makerspace events.
+        <a href="/contact/">Contact an officer</a> for details.
+      </p>
+      <p>
+        Do you have a tool that you no longer want, but could be useful to the
+        Makerspace? We accept most donations. Contact an officer for how to
+        donate your old equipment. We can't accept all items, but it is always
+        worth checking our <a href="/tools/#tool-wishlist">tool wishlist</a>.
+      </p>
+    </div>
+    <div class="cta-row">
+      <Button href={org.paypal} external>Donate</Button>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="questions">
+    <h2 id="questions">Contact</h2>
+    <ul class="link-list">
+      <li><WikiLink href={wiki.faq}>FAQ</WikiLink></li>
+      <li><WikiLink href={wiki.guestPolicy}>Guest policy</WikiLink></li>
+      <li><WikiLink href={wiki.codeOfConduct}>Code of conduct</WikiLink></li>
+      <li><a href="/contact/">Contact an officer</a></li>
+    </ul>
+  </section>
+</Base>

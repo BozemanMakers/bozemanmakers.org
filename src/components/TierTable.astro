@@ -1,0 +1,34 @@
+---
+import { org } from '../data/org';
+import Button from './Button.astro';
+
+const tiers = [
+  { ...org.membership.college, primary: false },
+  { ...org.membership.standard, primary: true },
+];
+---
+
+<div class="tier-table">
+  {
+    tiers.map((tier) => (
+      <article class:list={['tier-row', tier.primary && 'tier-row--pick']}>
+        <div class="tier-row__head">
+          <h3 class="tier-row__name">{tier.name}</h3>
+          <p class="tier-row__price">{tier.price}</p>
+        </div>
+        <ul class="perks">
+          {org.membership.perks.map((perk) => (
+            <li>{perk}</li>
+          ))}
+        </ul>
+        <Button
+          href={`${org.memberful.checkout}${tier.planId}`}
+          variant={tier.primary ? 'primary' : undefined}
+          external
+        >
+          Purchase {tier.name} Membership
+        </Button>
+      </article>
+    ))
+  }
+</div>
