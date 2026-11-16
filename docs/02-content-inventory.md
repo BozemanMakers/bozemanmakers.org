@@ -58,7 +58,7 @@ home, structured data.
 | --- | --- | --- | --- |
 | Hero | Full-bleed photo strip (`img_0426-1.jpeg`), site title + tagline | **REWRITE** | Same hero, re-encoded image; overlay tagline and a primary CTA ("Visit us Thursdays 6:30–8 PM") |
 | Welcome | Address line + three paragraphs explaining what a makerspace is, linking to Wikipedia | **KEEP** (trim) | Shorten to one tight paragraph; the Wikipedia link can stay |
-| Membership intro | Tour at Thursday Open Build; 18+; signed release form; fob sign-out at Open Build | **KEEP** | Membership section (or a `/membership/` page later) |
+| Membership intro | Tour at Thursday Open Build; 18+; signed release form; fob sign-out at Open Build | **KEEP** | Membership section; the same block is reused on `/membership/` (shop QR target) |
 | Pricing cards | College Age $20/mo and Standard $50/mo with four ✓ features each + Memberful checkout buttons | **KEEP** | Pricing cards, same Memberful URLs |
 | Manage membership | Memberful sign-in link + "contact an officer" | **KEEP** (fix link) | Link to `/contact/` (today's copy points at `bozemanmakers.wordpress.com/contact/`) |
 | Upcoming Events | Google Calendar iframe + "Subscribe for Class and Workshop Announcements" (MailerLite) | **KEEP** (verify) | Calendar embed + newsletter button; verify the calendar is public (audit defect #10) |
@@ -99,7 +99,7 @@ site keeps **category cards only** — no per-machine list — so the page canno
 | --- | --- | --- | --- |
 | 501(c)(3) statement | One sentence | **KEEP** | `/organization/` intro |
 | 2026 Officers table | 4 rows | **KEEP + link** | Keep the 4-row table (small, high-value) and link to wiki Current Officers |
-| Bylaws (Articles 1–6, 30 anchors) | ~9,800 words, full legal text | **KEEP** (canonical here) | `/organization/` with clean, stable anchors; the wiki keeps a mirror with a sync banner (decision D2) |
+| Bylaws (Articles 1–6, 29 anchors) | ~2,200 words, full legal text | **KEEP** (canonical here) | `/organization/` with clean, stable anchors; the wiki keeps a mirror with a sync banner (decision D2) |
 
 **Why the site is the canonical copy (the wiki mirrors it):**
 

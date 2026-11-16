@@ -24,6 +24,7 @@
 
 ```text
 /                 Home — who we are, where, hours, membership signup, events, donate, newsletter
+/membership/      Membership — shop-signage/QR signup page; same content as the home block
 /tools/           Tools overview — short intro + 8–9 category cards linking to the wiki, tool wishlist
 /organization/    501(c)(3), 2026 officers, bylaws (canonical; see decision D2)
 /contact/         Contact form + address/hours/email + FAQ/orientation links
@@ -31,8 +32,8 @@
 /404              Not found
 ```
 
-Optional later (only if wanted): `/membership/` (split from home), `/calendar/` (standalone events page),
-`/faq/` (redirect to the wiki FAQ instead of hosting a copy).
+Optional later: `/calendar/` (standalone events page), `/faq/` (redirect to the wiki FAQ instead of
+hosting a copy).
 
 **Navigation**
 

@@ -3,6 +3,9 @@ Source: https://bozemanmakers.org/organization/
 Captured: 2026-11-15 via curl + html2text from live WordPress.com site
 Status: VERBATIM archive of rendered page copy (navigation, WordPress footer chrome, and
         comments UI removed). Do not edit for style; treat as the migration source text.
+Repaired: 2026-11-15 — two headings were split across lines by the html2text conversion
+        ("SECTION 4 -- Termination of Membership", "ARTICLE 4 -- Officers"). Merged so they
+        render as headings; wording unchanged.
 -->
 
 Source URL: <https://bozemanmakers.org/organization/>
@@ -124,8 +127,7 @@ In addition to the above rights and responsibilities, all Members shall have the
   4. store a reasonable amount of equipment and/or materials at the space, 
   5. nominate a qualified person to be a Member. 
 
-####  
-SECTION 4 -- Termination of Membership
+#### SECTION 4 -- Termination of Membership
 
 A person ceases to be a member of the corporation:
 
@@ -204,8 +206,7 @@ for votes to be held at a special or annual meeting.
   3. Any motion to terminate a membership must be resolved by a ¾ majority vote.
   4. All other issues to be voted on shall be decided by a simple majority of voting members.
 
-###  
-ARTICLE 4 -- Officers
+### ARTICLE 4 -- Officers
 
 #### SECTION 1 -- Numbers
 

@@ -22,7 +22,7 @@ against reality). Nothing in `04-new-site-plan.md` should be built until D1–D7
 | # | Decision | Notes |
 | --- | --- | --- |
 | D8 | Keep a short tool list on `/tools/` at all, or only category cards? | **DECIDED (2026-11-15): category cards only.** Nine cards linking to wiki books, plus the site-owned tool wishlist. No headline-machine list — the wiki owns machine detail. |
-| D9 | Split membership into its own `/membership/` page? | Home is currently long; splitting later is cheap. Keep on home for now to preserve the "one-page brochure" feel. |
+| D9 | Split membership into its own `/membership/` page? | **DECIDED (2026-11-15): yes.** Add `/membership/` as the shop-signage/QR target. The home page keeps its membership section; both use the same shared block and Memberful links. |
 | D10 | Public **Slack** invite on the site? | The wiki tells members to request training in `#class-requests` but nothing links to Slack. A "Join our Slack" CTA would help — needs an invite link that doesn't expire. |
 | D11 | Domain/brand consolidation | Site on `bozemanmakers.org`, wiki on `bozemanmakerspace.com`, email on `bozemanmakers.com`. Decide whether to standardise on one (e.g. serve the site at `bozemanmakerspace.com` and 301 the other) or leave as-is. |
 | D12 | Newsletter embed vs button | Today: a button to the MailerLite share page. Embedding the form on the home page likely increases signups. |

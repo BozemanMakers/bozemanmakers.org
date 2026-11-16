@@ -1,6 +1,8 @@
 # 08 — MVP build plan (first draft)
 
 **Date:** 2026-11-15 · **Status:** approved plan, not started
+**Revised 2026-11-15:** the automated copy-slot schema and `copy:report` were dropped. Copy is transcribed
+inline and checked by a person before launch.
 
 Combines the design system (`bozeman-makerspace-design-system/`) with the architecture docs (`04`–`07`)
 into a build plan for the first draft of the new site.
@@ -15,10 +17,11 @@ into a build plan for the first draft of the new site.
 | Question | Decision |
 | --- | --- |
 | Allowed sources | The six pages of bozemanmakers.org (`archive/`) **and** wiki.bozemanmakerspace.com, quoted verbatim with a cited source |
-| Typos in existing copy | Spelling/grammar/punctuation fixes only, no rewording; every fix logged with the original |
+| Typos in existing copy | Spelling/grammar/punctuation fixes only, no rewording; every fix logged in the PR description with the original |
 | Design-system `BZM-xxx` part-number labels | **Dropped** for the MVP |
-| Scope of the rule | **Visible page copy** (headings, body text, CTAs, nav labels). Functional strings (alt text, aria labels, iframe titles, meta descriptions, form error messages) may be written by the build agent and live in a separate, editable file |
-| Unfilled placeholders | Shown as hazard-striped boxes on preview deploys; **production builds fail** until every placeholder is filled |
+| Scope of the rule | **Visible page copy** (headings, body text, CTAs, nav labels). Functional strings (alt text, aria labels, iframe titles, meta descriptions, form error messages) may be written by the build agent and live in `src/content/microcopy.ts` |
+| Unfilled placeholders | Marked with a visible `TODO` box on preview deploys and listed in the PR; fixed before launch |
+| Enforcement | A human read-through against `docs/archive/` and the wiki before launch. **No schema, no report script, no failing builds.** |
 
 **Superseded:** the "new copy to write" checklist in `02-content-inventory.md` §5 and the suggested
 wording in `02`/`04` (e.g. the proposed contact intro and hero CTA text) are **not** to be used. Those slots
@@ -43,23 +46,23 @@ The design system sets the look. The architecture docs set structure, URLs and h
 
 ---
 
-## 2. How the copy rule is enforced
+## 2. How the copy rule is applied
 
-- **Copy slots.** Every heading, paragraph and CTA reads from `src/content/copy/<page>.yaml`. Each slot has:
-  - `text` — the copy, or `null` if not yet written
-  - `source` — e.g. `archive/home.md:L34`, `wiki:faq#open-build`, or `PLACEHOLDER`
-  - `original` — present only when a typo fix changed the text
+No schema, no copy report, no build-time checks. The site is seven pages; a person reads it before launch.
 
-  A schema check rejects any slot without a `source`.
-- **`<Copy slot="home.membership.intro"/>`** renders the text. If `text` is `null`, preview builds show a
-  hazard-striped box (reusing the SafetyNote stripe) with the slot name and a short hint. Production builds
-  fail and list every unfilled slot.
-- **`npm run copy:report`** prints every slot with its source and status (verbatim / typo-fixed /
-  placeholder). This is the review checklist and the typo-fix ledger.
+- **Copy lives inline** in the Astro components. Each block gets a one-line comment naming its source, e.g.
+  `<!-- source: archive/home.md:L16 -->` or `<!-- source: wiki:faq -->`.
+- **Typos** are fixed in place. If a fix changes wording, note the original in the PR description so the
+  reviewer can see what moved.
+- **Unwritten copy** is marked with a `TODO` comment and a visible placeholder box on the preview deploy,
+  then filled before launch. Nothing fails the build.
 - **Functional strings** (alt text, aria labels, iframe titles, meta descriptions, form errors) live in
-  `src/content/copy/microcopy.yaml`, outside the copy report.
+  `src/content/microcopy.ts` so they are easy to review in one place. They are not "copy" in the
+  no-AI-text sense, but keep factual claims about the space out of them.
 - **Bylaws** are one Markdown file (`source: archive/organization.md`). Only heading markup is corrected,
   never wording. The duplicated "SECTION 6" heading stays as written.
+- **Review** is a read-through: open each page against `docs/archive/` and the wiki, check the diff, and
+  look for anything that reads as newly written rather than transcribed.
 
 ---
 
@@ -90,6 +93,12 @@ The design system sets the look. The architecture docs set structure, URLs and h
 - **Donate:** existing copy verbatim; contact link fixed to `/contact/`, wishlist link fixed to
   `/tools/#tool-wishlist`; PayPal image becomes a `Donate` button ("Donate" is the old image's alt text)
 
+### Membership `/membership/`
+
+- Same copy as the home membership block, extracted into `MembershipPanel` so it is not duplicated.
+- Page H1 `Membership`, then `Sign Up` as H2: intro paragraphs, release-form note, tier table, manage links.
+- This is the shop-signage/QR target. The home section stays; the hero `Sign Up` button links here.
+
 ### Tools `/tools/`
 
 - **Intro:** existing copy, plus "Want the specifics on a tool? Check out our new wiki…" (capital "Check"
@@ -106,7 +115,7 @@ The design system sets the look. The architecture docs set structure, URLs and h
 ### Organization `/organization/`
 
 501(c)(3) line, `2026 Officers` table, link to the wiki page "Current Officers", and the bylaws with all
-32 anchors at their original IDs.
+29 legacy anchors at their original IDs.
 
 ### Contact `/contact/`
 
@@ -139,27 +148,28 @@ Shield in the paper colour, existing location/e-mail/hours block, links to Faceb
 - **Cloudflare Pages** via Git integration. The form handler lives in `/functions`, so no Astro adapter is
   needed and the build stays host-agnostic (see `07-hosting-decision.md` §4)
 - `astro:assets` for images (AVIF/WebP + `srcset`), `@astrojs/sitemap`, Fontsource for fonts
-- Dark theme from `prefers-color-scheme` via existing tokens; no manual toggle (it would need a label)
+- Light theme by default (`data-theme="light"` on `<html>`); the dark palette stays in
+  `tokens.css` for a future opt-in. No toggle.
 
 ```text
 src/styles/tokens.css, components.css   ← ported from the design system, Google @import removed
 src/components/  Header, MobileMenu, Footer, Shield, Button, PartTag, TicketCard,
-                 Note, HoursTable, TierTable, WikiLink, Copy, Placeholder
-src/content/copy/*.yaml  + microcopy.yaml + bylaws.md
+                 Note, HoursTable, TierTable, WikiLink
+src/content/bylaws.md · src/content/microcopy.ts
 src/data/org.ts (facts, Memberful plan IDs) · src/data/wiki.ts (all wiki URLs)
-src/pages/  index, tools, organization, contact, thank-you, 404
+src/pages/  index, membership, tools, organization, contact, thank-you, 404
 functions/api/contact.ts
 public/  _redirects, _headers, robots.txt, forms/member-and-guest-release.pdf
-scripts/copy-report.ts
 ```
 
 ---
 
 ## 5. Contact form
 
-`POST /api/contact` in a Pages Function: honeypot + Turnstile check, input validation, send to
+`POST /api/contact` in a Pages Function: honeypot + rate limit, input validation, send to
 `makers@bozemanmakers.com` with `reply-to` = submitter, `303` redirect to `/thank-you/` on success. A visible
-`mailto:` fallback stays on the page.
+`mailto:` fallback stays on the page. **Turnstile is optional** — add it only if spam gets through the
+honeypot; it is the one third-party script on the site.
 
 **Mail provider: Resend** (free tier 3,000/month, 100/day). Correction to `07-hosting-decision.md`:
 MailChannels is believed to have ended free sending for Workers in 2024 — verify before considering it.
@@ -176,21 +186,22 @@ owner's address) until cutover. **Decision pending.**
 | --- | --- | --- |
 | M0 | Re-capture bozemanmakers.org and diff against `archive/`; download hero image, release PDF, Hebocon assets; pull wiki FAQ text | Archive current; assets in repo |
 | M1 | Scaffold Astro, port tokens/components, layout shell (header, menu, footer, shield), connect Cloudflare Pages | Blank site live at `*.pages.dev` |
-| M2 | Copy system: schema, `<Copy>`, placeholder box, strict production check, `copy:report` | A placeholder fails a strict build |
-| M3 | All six pages wired to copy files with real sources | Copy report shows only expected placeholders |
-| M4 | Contact function + Turnstile | Test submission reaches the test inbox |
+| M2 | Page templates: seven pages built with the shared components and layout, copy stubbed | Every page renders on `pages.dev`; structure and components are final |
+| M3 | Copy pass: every visible string transcribed from `archive/` or the wiki with a `source:` comment; typo fixes logged in the PR | A person has read each page against the source; no `TODO`s left |
+| M4 | Contact function (+ Turnstile only if needed) | Test submission reaches the test inbox |
 | M5 | `_redirects` (per `05`), `_headers`, sitemap, robots, JSON-LD, meta descriptions | `05` §8 verification script passes against preview URL |
-| M6 | QA: Lighthouse, keyboard + screen reader, 320px width, logged-out calendar check, link check; hand over placeholder list | §7 holds |
+| M6 | QA: Lighthouse, keyboard + screen reader, 320px width, logged-out calendar check, link check; confirm no `TODO` copy remains | §7 holds |
 
 ---
 
 ## 7. Definition of done (MVP draft)
 
-- Five pages and a 404 live on a `pages.dev` preview URL
-- Every visible string has a source in the copy report; unfilled slots are visible placeholders
+- Six pages and a 404 live on a `pages.dev` preview URL
+- Every visible string was transcribed from `archive/` or the wiki and checked by a person; typo fixes are
+  logged in the PR
 - Form delivers mail; redirects work; every legacy anchor ID is present
-- Lighthouse mobile: performance ≥ 95, accessibility 100, SEO 100; hero < 150 KB; no client JS except
-  Turnstile
+- Lighthouse mobile: performance ≥ 95, accessibility 100, SEO 100; hero < 150 KB; no first-party client JS
+  (Turnstile only if enabled)
 
 **Out of scope for the MVP:** DNS/email cutover, cancelling WordPress.com, wiki cleanup (W1–W12),
 secondary decisions D9–D14.

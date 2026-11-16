@@ -68,7 +68,7 @@ Confirmed from `sitemap.xml`, `robots.txt`, internal link extraction, and the Wo
 | --- | --- | --- | --- | --- |
 | `/` | Bozeman Makerspace – A community workshop in Bozeman Montana | 2026-07-16 | 107 KB | Welcome, address/hours, membership pricing, events calendar, donate, newsletter |
 | `/tools/` | Tools | 2026-07-16 | 101 KB | Category TOC + ~70-line tool list + tool wishlist |
-| `/organization/` | Organization | 2026-01-30 | 115 KB | 501(c)(3) statement, 2026 officers, full bylaws with 30 anchors |
+| `/organization/` | Organization | 2026-01-30 | 115 KB | 501(c)(3) statement, 2026 officers, full bylaws with 29 anchors |
 | `/contact/` | Contact | 2019-01-27 | 105 KB | Jetpack contact form (name/e-mail/message) |
 | `/thank-you/` | Thank You | 2022-04-02 | 87 KB | Post-submission / post-donation confirmation |
 | `/hebocon/` | Hebocon ’21: The Ultimate Crappy Robot Battle | 2021-10-12 | 127 KB | **Stale** 2021 event page (old address, YouTube embed, image gallery, rules PDF) |

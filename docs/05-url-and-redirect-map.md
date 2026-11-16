@@ -17,6 +17,7 @@
 | Old URL | New URL | Code | Notes |
 | --- | --- | --- | --- |
 | `/` | `/` | 200 | Same path; rebuilt |
+| *(new)* | `/membership/` | 200 | Shop-signage/QR signup page; the home membership section stays |
 | `/tools/` | `/tools/` | 200 | Same path; content rewritten, anchors preserved |
 | `/organization/` | `/organization/` | 200 | Same path; bylaws canonical here (decision D2) |
 | `/contact/` | `/contact/` | 200 | Same path — **the wiki FAQ links here** |
@@ -77,7 +78,7 @@ Old links then still land in the right part of the page. Category-level anchors 
 
 ## 4. `/organization/` anchors
 
-All 32 anchors currently resolve to unique IDs. **Reuse the exact IDs** in the rebuilt page (no anchor
+All 29 anchors in the table below currently resolve to unique IDs. **Reuse the exact IDs** in the rebuilt page (no anchor
 redirects needed). If the bylaws move to the wiki instead (alternative to decision D2), every one of these
 must 301/redirect to the wiki page — but wiki anchors are BookStack-generated and unstable, so only
 page-level targets are possible: `https://wiki.bozemanmakerspace.com/books/organization/page/bylaws`.

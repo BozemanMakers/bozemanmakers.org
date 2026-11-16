@@ -65,7 +65,7 @@ Useful landing pages: all shelves `https://wiki.bozemanmakerspace.com/shelves`, 
 | Home — storage locker perk | "Personal storage locker" | `/books/rules-and-policies/page/storage-policy` | Leave as perk; policy detail lives in the wiki |
 | Home — fob replacement | Not on the site | `/books/rules-and-policies/page/fee-schedule` | Optional line: "Lost fob? $5 replacement" |
 | `/organization/` officers table | 2026 officers | `/books/organization/page/current-officers` | Keep the table **and** link to the wiki page (it has the same data; make the wiki the update point) |
-| `/organization/` bylaws | Full bylaws, 30 anchors | `/books/organization/page/bylaws` (mirror copy) | **Decided (D2):** site is canonical, wiki mirrors it with a sync banner + link back |
+| `/organization/` bylaws | Full bylaws, 29 anchors | `/books/organization/page/bylaws` (mirror copy) | **Decided (D2):** site is canonical, wiki mirrors it with a sync banner + link back |
 | `/organization/` (implicit) | — | `/books/organization/page/annual-filings`, `/books/organization/chapter/officer-responsibilities` | Link "for officers" from `/organization/` |
 | `/contact/` | Contact form | — | Keep the form; add FAQ + orientation links |
 | Footer/site-wide | Address, hours | `/books/rules-and-policies/page/parking-policy` | Optional footer link: "Parking & arrival" |
