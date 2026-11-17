@@ -1,25 +1,20 @@
-// Cloudflare Pages Function: POST /api/contact
+// Contact handler for POST /api/contact.
 // Honeypot + best-effort rate limit + optional Turnstile, then Resend.
-// Environment variables (set in the Pages project, not in the repo):
+// Environment variables (Worker settings, not the repo):
 //   RESEND_API_KEY, CONTACT_TO, CONTACT_FROM, TURNSTILE_SECRET_KEY (optional)
 
-interface Env {
+export interface ContactEnv {
   RESEND_API_KEY?: string;
   CONTACT_TO?: string;
   CONTACT_FROM?: string;
   TURNSTILE_SECRET_KEY?: string;
 }
 
-interface Context {
-  request: Request;
-  env: Env;
-}
-
 const LIMITS = { name: 200, email: 320, message: 5000 };
 const RATE_WINDOW_MS = 10 * 60 * 1000;
 const RATE_MAX = 5;
 
-// Best-effort only: one Map per worker isolate. It is not a durable rate limit.
+// Best-effort only: one Map per Worker isolate. Not a durable rate limit.
 const hits = new Map<string, { count: number; reset: number }>();
 
 function isRateLimited(ip: string): boolean {
@@ -33,7 +28,7 @@ function isRateLimited(ip: string): boolean {
   return entry.count > RATE_MAX;
 }
 
-function clean(value: FormDataEntryValue | null): string {
+function clean(value: unknown): string {
   return typeof value === 'string' ? value.trim() : '';
 }
 
@@ -57,8 +52,10 @@ function errorPage(message: string, status = 400): Response {
   );
 }
 
-export async function onRequestPost(context: Context): Promise<Response> {
-  const { request, env } = context;
+export async function handleContact(
+  request: Request,
+  env: ContactEnv,
+): Promise<Response> {
   const ip = request.headers.get('CF-Connecting-IP') ?? 'unknown';
 
   if (isRateLimited(ip)) {
@@ -144,11 +141,4 @@ export async function onRequestPost(context: Context): Promise<Response> {
   }
 
   return new Response(null, { status: 303, headers: { Location: '/thank-you/' } });
-}
-
-export async function onRequest(): Promise<Response> {
-  return new Response('Method not allowed', {
-    status: 405,
-    headers: { Allow: 'POST' },
-  });
 }

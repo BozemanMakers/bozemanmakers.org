@@ -203,10 +203,10 @@ Target stack:
 
 | Item | Annual cost |
 | --- | --- |
-| Static hosting (Cloudflare Pages free tier) | $0 |
+| Static hosting (Cloudflare Workers free tier) | $0 |
 | Domain renewal (`bozemanmakers.org`) | ~$12–20 |
 | TLS certificate | $0 (included) |
-| Contact form (Cloudflare Pages Function + Resend free tier, or Formspree free tier) | $0 |
+| Contact form (Cloudflare Worker + Resend free tier, or Formspree free tier) | $0 |
 | Analytics (Cloudflare Web Analytics) | $0 |
 | Email (Rackspace — unchanged) | unchanged |
 | Memberful, PayPal, MailerLite, Google Calendar | unchanged |

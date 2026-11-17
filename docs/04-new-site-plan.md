@@ -63,6 +63,11 @@ Each page should be a thin template around shared components (`Header`, `Footer`
 6. **Donate** — PayPal button, tax-deductible line, tool wishlist link, correct `/contact/` link.
 7. **Questions?** — links to wiki FAQ, guest policy, code of conduct, contact.
 
+### `/membership/`
+
+Same membership block as the home page (intro, release-form note, `Sign Up`, tier table, manage links), on
+its own URL for the shop QR code. The home page keeps its membership section and links here.
+
 ### `/tools/`
 
 1. Intro: "The Makerspace has many tools… the wiki has the details, manuals and training requirements."
@@ -110,12 +115,15 @@ Same copy as today, plus a secondary CTA back to the home page and a "what happe
 │  ├─ layouts/Base.astro
 │  └─ pages/
 │     ├─ index.astro
+│     ├─ membership.astro
 │     ├─ tools.astro
 │     ├─ organization.astro
 │     ├─ contact.astro
 │     ├─ thank-you.astro
 │     └─ 404.astro
-├─ functions/api/contact.ts  ← optional Cloudflare Pages Function (form handler)
+├─ worker/index.ts            ← Worker entry: /api/* + static assets
+├─ worker/contact.ts          ← contact form handler
+├─ wrangler.jsonc             ← Workers static assets + routing
 ├─ astro.config.mjs
 └─ package.json
 ```
@@ -127,18 +135,19 @@ Astro markup with explicit `id`s. Markdown + an auto-generated TOC is easier to 
 
 | Option | Fit for this site | Cost | Editing by non-technical officers | Notes |
 | --- | --- | --- | --- | --- |
-| **Astro + Cloudflare Pages** *(recommended)* | Excellent — 6 static pages, components, image optimisation, zero JS by default | $0 hosting | Markdown in Git; optional Pages CMS/Decap | Best balance of maintainability and polish; Cloudflare handles domains, TLS, redirects, analytics, functions |
+| **Astro + Cloudflare Workers** *(recommended)* | Excellent — 6 content pages + 404, components, image optimisation, zero JS by default | $0 hosting | Markdown in Git; optional Pages CMS/Decap | Best balance of maintainability and polish; Cloudflare handles domains, TLS, redirects, analytics, and a Worker for the form |
 | Eleventy (11ty) + GitHub Pages | Very good, simpler mental model | $0 | Same | No built-in functions for forms (use Formspree); images need manual optimisation |
 | Plain HTML/CSS in repo | Good if the club wants zero tooling | $0 | Requires HTML knowledge | No components → hours/address repeated in 6 files |
 | Hugo + Netlify | Good | $0 | Same | Fast builds; Netlify Forms is a handy built-in |
 | WordPress on cheap shared hosting | Keeps the editor UX | ~$5–15/mo + maintenance | Yes | Reintroduces plugin updates, security patching, and the reason you're leaving |
 | Keep WordPress.com | — | $96–300/yr | Yes | Status quo |
 
-**Recommendation:** **Astro static build → Cloudflare Pages**, repo on GitHub, deploy on push to `main`,
+**Recommendation:** **Astro static build → Cloudflare Workers**, repo on GitHub, deploy on push to `main`,
 preview deploy per pull request.
 
-**Pricing note (checked 2026-11-15):** Cloudflare Pages does not meter static bandwidth or requests and
-allows 500 builds/month, with Pages Functions at 100,000 requests/day on the free plan. Netlify's current
+**Pricing note (checked 2026-11-16):** Cloudflare Workers static assets are free and unlimited; only
+requests that invoke the Worker (here `/api/*`) count against the 100,000/day free tier. Workers Builds has
+its own build-minute limits; check the current plan. Netlify's current
 free plan is a **300-credit pool** (≈20 production deploys *or* ≈15 GB bandwidth *or* ≈1.5 M requests, shared
 with form submissions), with the first paid tier at $9/mo. At the makerspace's volume both are free, but
 Cloudflare has no realistic ceiling and no metered path to a bill. See
@@ -163,7 +172,7 @@ DNS (including apex flattening), free Web Analytics, and `_redirects`/`_headers`
 | Donations | PayPal hosted button | Keep; ensure the button's return URL points at `/thank-you/` |
 | Newsletter | MailerLite share link | Keep link; optionally embed the MailerLite form inline |
 | Events | Google Calendar iframe | Verify the calendar is **public**; embed an `.ics`-backed widget or a published calendar if not |
-| Contact form | Jetpack Forms (WordPress.com) | **Replace** with a **Cloudflare Pages Function** (`functions/api/contact.ts`) that validates input and sends via a transactional mail provider (Resend/Postmark free tier). Honeypot + Turnstile; success → `/thank-you/`; keep a visible `mailto:` fallback. The handler is deliberately one small file so it can be swapped for Formspree/Netlify Functions if the host ever changes |
+| Contact form | Jetpack Forms (WordPress.com) | **Replace** with a **Cloudflare Worker** (`worker/index.ts` + `worker/contact.ts`) that validates input and sends via a transactional mail provider (Resend/Postmark free tier). Honeypot + Turnstile; success → `/thank-you/`; keep a visible `mailto:` fallback. The handler is deliberately one small file so it can be swapped for Formspree/another host if the stack ever changes |
 | Release form | PDF on wp.com uploads | Re-host at `/forms/member-and-guest-release.pdf`, link with file size + "PDF" |
 | Analytics | WordPress.com stats | Cloudflare Web Analytics (cookieless) or none |
 | Search | WordPress search | Not needed (wiki has its own search) |
@@ -225,11 +234,11 @@ individual — confirm in `06-open-questions.md`.
 
 - [ ] Create Astro project, base layout, header/footer, design tokens (colours from the current theme).
 - [ ] Add `src/data/org.ts` and `src/data/wiki.ts`.
-- [ ] Set up Cloudflare Pages project + preview deploys.
+- [ ] Set up Cloudflare Workers project + preview deploys.
 
 ### Phase 3 — Build pages
 
-- [ ] Home, Tools, Organization (+ bylaws), Contact, Thank-you, 404.
+- [ ] Home, Membership, Tools, Organization (+ bylaws), Contact, Thank-you, 404.
 - [ ] Image pipeline (AVIF/WebP + srcset), favicon set, OG image.
 - [ ] JSON-LD, sitemap, robots, meta descriptions.
 
@@ -252,7 +261,7 @@ individual — confirm in `06-open-questions.md`.
 
 - [ ] Lower DNS TTL to 300 s ≥ 24 h before cutover.
 - [ ] Recreate MX/SPF/DMARC **before** switching nameservers (email is on Rackspace, not WordPress.com).
-- [ ] Point `bozemanmakers.org` + `www` at Cloudflare Pages; verify HTTPS.
+- [ ] Point `bozemanmakers.org` + `www` at Cloudflare Workers; verify HTTPS.
 - [ ] Submit the new sitemap in Google Search Console; confirm no coverage errors after ~1 week.
 - [ ] Update external profiles: Facebook page, Google Business Profile, Google Photos album description,
       wiki FAQ links (if paths changed), any printed materials.
@@ -273,7 +282,7 @@ individual — confirm in `06-open-questions.md`.
 
 | Line item | Current | After migration |
 | --- | --- | --- |
-| Website hosting | WordPress.com Premium ≈ $96/yr (or Business ≈ $300/yr) | Cloudflare Pages **$0** |
+| Website hosting | WordPress.com Premium ≈ $96/yr (or Business ≈ $300/yr) | Cloudflare Workers **$0** |
 | Domain | Included/renewed via WP.com | ~$12–20/yr (registrar) |
 | TLS | Included | Included |
 | Contact form | Included in WP.com plan | $0–$10/mo (free tiers likely sufficient) |

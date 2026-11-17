@@ -1,6 +1,6 @@
 # 08 — MVP build plan (first draft)
 
-**Date:** 2026-11-15 · **Status:** approved plan, not started
+**Date:** 2026-11-15 · **Status:** approved plan, implementation in progress
 **Revised 2026-11-15:** the automated copy-slot schema and `copy:report` were dropped. Copy is transcribed
 inline and checked by a person before launch.
 
@@ -145,8 +145,9 @@ Shield in the paper colour, existing location/e-mail/hours block, links to Faceb
 
 - **Astro 5**, static output, TypeScript, no UI framework, zero client JS (except optional Turnstile on
   `/contact/`)
-- **Cloudflare Pages** via Git integration. The form handler lives in `/functions`, so no Astro adapter is
-  needed and the build stays host-agnostic (see `07-hosting-decision.md` §4)
+- **Cloudflare Workers** via Git integration (Workers Builds). A small Worker (`worker/index.ts`) handles
+  `/api/*`; static assets come from `dist/` via `wrangler.jsonc`. No Astro adapter is needed and the build
+  stays host-agnostic (see `07-hosting-decision.md` §4)
 - `astro:assets` for images (AVIF/WebP + `srcset`), `@astrojs/sitemap`, Fontsource for fonts
 - Light theme by default (`data-theme="light"` on `<html>`); the dark palette stays in
   `tokens.css` for a future opt-in. No toggle.
@@ -158,15 +159,17 @@ src/components/  Header, MobileMenu, Footer, Shield, Button, PartTag, TicketCard
 src/content/bylaws.md · src/content/microcopy.ts
 src/data/org.ts (facts, Memberful plan IDs) · src/data/wiki.ts (all wiki URLs)
 src/pages/  index, membership, tools, organization, contact, thank-you, 404
-functions/api/contact.ts
-public/  _redirects, _headers, robots.txt, forms/member-and-guest-release.pdf
+worker/index.ts          ← Worker entry: /api/* + asset fallback
+worker/contact.ts        ← contact form handler
+wrangler.jsonc           ← static assets + run_worker_first
+public/  _redirects, _headers, .assetsignore, robots.txt, forms/member-and-guest-release.pdf
 ```
 
 ---
 
 ## 5. Contact form
 
-`POST /api/contact` in a Pages Function: honeypot + rate limit, input validation, send to
+`POST /api/contact` in a Worker: honeypot + rate limit, input validation, send to
 `makers@bozemanmakers.com` with `reply-to` = submitter, `303` redirect to `/thank-you/` on success. A visible
 `mailto:` fallback stays on the page. **Turnstile is optional** — add it only if spam gets through the
 honeypot; it is the one third-party script on the site.
@@ -185,10 +188,10 @@ owner's address) until cutover. **Decision pending.**
 | # | Milestone | Done when |
 | --- | --- | --- |
 | M0 | Capture assets: hero image, release PDF, wiki FAQ text; archive the original hero. Re-capture/diff skipped 2026-11-16 (live site unchanged). | Assets in repo |
-| M1 | Scaffold Astro, port tokens/components, layout shell (header, menu, footer, shield), connect Cloudflare Pages | Blank site live at `*.pages.dev` |
-| M2 | Page templates: seven pages built with the shared components and layout, copy stubbed | Every page renders on `pages.dev`; structure and components are final |
+| M1 | Scaffold Astro, port tokens/components, layout shell (header, menu, footer, shield), connect Cloudflare Workers | Blank site live at `*.workers.dev` |
+| M2 | Page templates: seven pages built with the shared components and layout, copy stubbed | Every page renders on `workers.dev`; structure and components are final |
 | M3 | Copy pass: every visible string transcribed from `archive/` or the wiki with a `source:` comment; typo fixes logged in the PR | A person has read each page against the source; no `TODO`s left |
-| M4 | Contact function (+ Turnstile only if needed) | Test submission reaches the test inbox |
+| M4 | Contact Worker (+ Turnstile only if needed) | Test submission reaches the test inbox |
 | M5 | `_redirects` (per `05`), `_headers`, sitemap, robots, JSON-LD, meta descriptions | `05` §8 verification script passes against preview URL |
 | M6 | QA: Lighthouse, keyboard + screen reader, 320px width, logged-out calendar check, link check; confirm no `TODO` copy remains | §7 holds |
 
@@ -196,7 +199,7 @@ owner's address) until cutover. **Decision pending.**
 
 ## 7. Definition of done (MVP draft)
 
-- Six pages and a 404 live on a `pages.dev` preview URL
+- Six pages and a 404 live on a `workers.dev` preview URL
 - Every visible string was transcribed from `archive/` or the wiki and checked by a person; typo fixes are
   logged in the PR
 - Form delivers mail; redirects work; every legacy anchor ID is present

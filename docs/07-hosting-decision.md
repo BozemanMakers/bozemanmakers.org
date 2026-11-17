@@ -1,8 +1,13 @@
 # 07 — Hosting decision: Cloudflare vs Netlify, and vendor risk
 
-**Date:** 2026-11-15 · **Status:** recommendation, pending final sign-off (decision D7)
+**Date:** 2026-11-15 · **Status:** decided (D7); host updated to Workers static assets 2026-11-16
 
-The brief: *use Cloudflare Functions, and be as price-conscious as possible.* This document records the
+> **2026-11-16 update:** Cloudflare now presents Pages as the legacy workflow. The project uses
+> **Workers static assets + a Worker** for `/api/contact`. The cost and portability conclusions below are
+> unchanged; where this document says "Pages", read "Workers static assets", and re-check Workers Builds
+> limits before launch.
+
+The brief: *use Cloudflare Workers, and be as price-conscious as possible.* This document records the
 comparison, the answer to "will Cloudflare change their free tier?", and how the project is built so a
 future price change costs about 30 minutes rather than a rebuild.
 
@@ -40,20 +45,20 @@ Two useful takeaways:
 
 ## 2. Current free tiers (verified 2026-11-15)
 
-### Cloudflare Pages / Workers
+### Cloudflare Workers (static assets)
 
 | Limit | Free plan |
 | --- | --- |
-| Bandwidth / requests for static assets | **Unmetered** (no published cap) |
-| Builds | 500/month, 1 concurrent, 20 min timeout |
+| Bandwidth / requests for static assets | **Free and unlimited** |
+| Worker requests (`/api/*` only) | **100,000/day**, 10 ms CPU, 128 MB memory |
+| Builds | Workers Builds limits; re-check before launch |
 | Files per site | 20,000 (25 MiB per file) |
-| Custom domains | 100 per project |
-| Preview deployments | Unlimited |
+| Custom domains | 100 per Worker |
+| Preview deployments | Branch previews via Workers Builds |
 | Static redirects | 2,000 (`_redirects`) + 100 dynamic |
-| Functions (Workers) | **100,000 requests/day**, 10 ms CPU, 128 MB memory |
 | Paid step if ever exceeded | Workers Paid **$5/mo** |
 
-Sources: `developers.cloudflare.com/pages/platform/limits/` and
+Sources: `developers.cloudflare.com/workers/static-assets/billing-and-limitations/` and
 `developers.cloudflare.com/workers/platform/limits/`.
 
 ### Netlify ("credit-based" plans, current)
@@ -107,15 +112,15 @@ reversible. That is §4.
 
 ## 4. Portability design (the actual insurance)
 
-The site is deliberately built as **static files + one small function**, and the host is treated as
+The site is deliberately built as **static files + one small Worker**, and the host is treated as
 replaceable:
 
 | Concern | How it stays portable |
 | --- | --- |
-| Site output | Astro builds plain `dist/` — the same folder deploys to Cloudflare Pages, Netlify, GitHub Pages, S3, or any web server |
-| Redirects | `public/_redirects` is understood by **both** Cloudflare Pages and Netlify — the redirect map we already wrote works unchanged |
+| Site output | Astro builds plain `dist/` — the same folder deploys to Cloudflare Workers, Netlify, GitHub Pages, S3, or any web server |
+| Redirects | `public/_redirects` is understood by **both** Cloudflare Workers and Netlify — the redirect map we already wrote works unchanged |
 | Headers | `public/_headers` (Cloudflare). Netlify equivalent is a 5-line `netlify.toml`; commit both stubs from day one |
-| Contact form | One `POST /api/contact` endpoint behind a thin `sendMail()` function (~40 lines). Porting = replacing that one file (Netlify Function or Formspree) |
+| Contact form | One `POST /api/contact` endpoint behind a thin `handleContact()` handler (~40 lines). Porting = replacing that one file (Netlify Function or Formspree) |
 | DNS | Registered and hosted at **Cloudflare** regardless of host (registrar access confirmed 2026-11-15), so a host swap is one CNAME/flattened A record — minutes, and zero impact on MX/Rackspace email |
 | No vendor features | No Netlify Forms, no Cloudflare KV/D1/R2, no framework-specific adapters — nothing to un-migrate |
 | Analytics | Cloudflare Web Analytics by default; if we ever move, swap the script tag (or use Umami Cloud like `bozeman.studio`) |
@@ -127,7 +132,7 @@ see a build failure ("build limit reached") or a billing notice. A host move sho
 
 ## 5. Recommendation
 
-**Primary: Cloudflare Pages + a Pages Function.** It is the cheapest option that still gives us a real
+**Primary: Cloudflare Workers static assets + a Worker.** It is the cheapest option that still gives us a real
 contact form, free DNS, free TLS, free analytics, and unlimited traffic headroom — $0/yr, versus $108/yr
 for the first paid Netlify tier.
 
@@ -137,7 +142,7 @@ worth more than the cost edge. At this traffic it is $0 today, with a plausible 
 **Not recommended as the primary path:** GitHub Pages (free, but no functions → forms via a third party and
 no `_headers`), or a cheap WordPress host (reintroduces the maintenance you're leaving).
 
-**Decision record:** D4 (form backend) = Cloudflare Pages Function. Mail provider behind it: pick one of
+**Decision record:** D4 (form backend) = Cloudflare Worker. Mail provider behind it: pick one of
 Resend / Postmark / MailChannels at implementation time; all have free tiers adequate for a handful of
 messages a day. Fallback is a visible `mailto:` link, which costs nothing and never breaks.
 
@@ -145,12 +150,12 @@ messages a day. Fallback is a visible `mailto:` link, which costs nothing and ne
 
 Both would work. The tiebreakers, in order of importance:
 
-1. **No metered ceiling on the thing we can't predict — traffic.** Cloudflare doesn't meter static bandwidth
-   or requests. A newsletter mention, a news article, or a Hebocon post that goes viral costs $0 on
-   Cloudflare and eats a 300-credit pool on Netlify.
-2. **Build headroom.** This is a repo-and-PR workflow with preview deploys; 500 builds/month (Cloudflare)
-   versus ~20 production deploys' worth of credits (Netlify Free) is the difference between "just push" and
-   "is this deploy worth 15 credits?"
+1. **No metered ceiling on the thing we can't predict — traffic.** Cloudflare does not meter static asset
+   bandwidth or requests. A newsletter mention, a news article, or a Hebocon post that goes viral costs $0
+   on Cloudflare and eats a 300-credit pool on Netlify.
+2. **Build headroom.** This is a repo-and-PR workflow with preview deploys; Workers Builds' free build
+   allowance versus ~20 production deploys' worth of credits (Netlify Free) is the difference between
+   "just push" and "is this deploy worth 15 credits?"
 3. **Forms arrive as email, not in a dashboard.** For a volunteer org, a submission landing in the shared
    `makers@` mailbox that officers already read every day is more reliable than a Netlify forms dashboard
    that nobody logs into. It also fails loudly (bounce → noticed) rather than silently (unread dashboard).
@@ -170,12 +175,12 @@ Neither choice changes the code, the redirects, or the content model — see §4
 
 | Option | Hosting | Form | Domain | Total |
 | --- | --- | --- | --- | --- |
-| **Cloudflare Pages (recommended)** | $0 | $0 (free function + free mail tier) | ~$12–20 | **~$12–20** |
+| **Cloudflare Workers (recommended)** | $0 | $0 (free Worker requests + free mail tier) | ~$12–20 | **~$12–20** |
 | Netlify Free (credit model) | $0 while under 300 credits | $0 (forms consume credits) | ~$12–20 | ~$12–20 |
 | Netlify Personal (if limits hit) | $108 | included | ~$12–20 | ~$120–140 |
 | GitHub Pages + Formspree | $0 | $0 | ~$12–20 | ~$12–20 |
 | Current WordPress.com | $96–300 | included | included | **$96–300** |
 
-The only path that can *silently* cost money is a usage-metered host. Cloudflare's unmetered static
-hosting and its explicit 100k/day function cap (which fails closed rather than billing) is the most
-predictable of the options.
+The only path that can *silently* cost money is a usage-metered host. Cloudflare's free, unlimited static
+asset hosting and its explicit 100k/day Worker request cap (which fails closed rather than billing) is the
+most predictable of the options.

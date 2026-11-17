@@ -28,7 +28,7 @@ so nothing depends on the current host staying online.
   a donate link pointing at `bozemanmakers.wordpress.com`, a link to the wiki's old `wiki.spen.cc`
   alias, a 2021 event page listing the previous address, duplicate tool data, and truncated
   auto-generated meta descriptions.
-- Recommended target: **static site (Astro) on Cloudflare Pages**, repo-driven, with the existing
+- Recommended target: **static site (Astro) on Cloudflare Workers**, repo-driven, with the existing
   external services kept as-is. Recurring site cost drops from a WordPress.com plan to **≈ $0 hosting +
   ~$12–20/yr domain**; email (Rackspace) is unchanged.
 
@@ -61,13 +61,13 @@ so nothing depends on the current host staying online.
 
 | Ref | Decision |
 | --- | --- |
-| D1 | **Cloudflare Pages + Cloudflare DNS**; registrar access confirmed; export the zone and recreate Rackspace MX + add SPF/DMARC before the nameserver switch. |
+| D1 | **Cloudflare Workers + Cloudflare DNS**; registrar access confirmed; export the zone and recreate Rackspace MX + add SPF/DMARC before the nameserver switch. |
 | D2 | **Bylaws live in both places** — site copy is canonical, wiki is a dated mirror with a sync banner. |
 | D3 | **`/hebocon/` is retired** — 301 to `/`; media and rules PDF archived in the repo. |
-| D4 | **Contact form = Cloudflare Pages Function** → `makers@bozemanmakers.com`, `reply-to` = submitter. |
+| D4 | **Contact form = Cloudflare Worker** → `makers@bozemanmakers.com`, `reply-to` = submitter. |
 | D5 | **Calendar is public** — keep the embed; verify logged-out during QA. |
 | D6 | **Wiki canonical host = `wiki.bozemanmakerspace.com`**; `wiki.spen.cc` 301s to it. |
-| D7 | **Astro on Cloudflare Pages**, built host-agnostically (Netlify is the fallback). |
+| D7 | **Astro on Cloudflare Workers**, built host-agnostically (Netlify is the fallback). |
 | D8 | **`/tools/` = category cards only** (9 cards → wiki books) + the site-owned wishlist. |
 
 Still open: secondary decisions D9–D14 and the verification list V1–V14 in `06-open-questions.md`.

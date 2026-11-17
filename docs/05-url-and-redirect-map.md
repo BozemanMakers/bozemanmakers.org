@@ -133,7 +133,7 @@ WordPress.com plan is closed in case the event returns.
 **Tracking query strings** (`?w=2000`, `?fit=1200%2C900`, `?m=…`, `?ver=…`) disappear with the WP.com image
 CDN; don't try to redirect them.
 
-## 6. Redirect configuration (Cloudflare Pages example)
+## 6. Redirect configuration (Cloudflare Workers static assets)
 
 `public/_redirects`:
 
@@ -158,20 +158,24 @@ CDN; don't try to redirect them.
 /wp-json/*                /                                       301
 /xmlrpc.php               /                                       301
 
-# Trailing-slash normalisation (Cloudflare Pages serves both; keep parity with today)
+# Trailing-slash normalisation (Workers static assets serves both; keep parity with today)
 /tools                    /tools/                                 301
 /organization             /organization/                          301
 /contact                  /contact/                               301
 /thank-you                /thank-you/                             301
+/membership               /membership/                            301
 ```
 
-`_redirects` rules are evaluated top-down and do not inherit the query string; Cloudflare Pages adds the
-original query string to the `Location` header automatically. The trailing-slash rules at the end are
-usually redundant — Cloudflare Pages already normalises `/tools` to `/tools/` because a directory
+`_redirects` rules are evaluated top-down and do not inherit the query string; Workers static assets adds
+the original query string to the `Location` header automatically. The trailing-slash rules at the end are
+usually redundant — Workers static assets already normalises `/tools` to `/tools/` because a directory
 `index.html` exists — but they make the intent explicit and cost nothing.
 
+Workers static assets also supports `_headers`. Add a `.assetsignore` file containing `_redirects`,
+`_headers`, and `_routes.json` so those config files are not uploaded as public assets.
+
 **Apex/www/http** are handled by Cloudflare, not `_redirects`: add `bozemanmakers.org` as a custom domain
-on the Pages project, add `www` with a redirect rule, and enable "Always Use HTTPS". Verify with the
+on the Worker, add `www` with a redirect rule, and enable "Always Use HTTPS". Verify with the
 commands in §8.
 
 ## 7. Cross-site links to update at cutover

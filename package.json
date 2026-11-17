@@ -10,7 +10,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "dev:worker": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "check": "astro check && tsc -p worker/tsconfig.json",
+    "check:worker": "tsc -p worker/tsconfig.json"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.5",
@@ -21,11 +24,15 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
-    "typescript": "^5.9.3"
+    "@cloudflare/workers-types": "^5.20261117.1",
+    "typescript": "^5.9.3",
+    "wrangler": "^4.163.0"
   },
   "allowScripts": {
     "esbuild@0.27.7": true,
     "esbuild@0.25.12": true,
-    "sharp@0.34.5": true
+    "sharp@0.34.5": true,
+    "esbuild@0.28.2": true,
+    "workerd@1.20261116.1": true
   }
 }
