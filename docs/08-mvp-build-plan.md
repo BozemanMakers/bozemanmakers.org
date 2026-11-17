@@ -184,7 +184,7 @@ owner's address) until cutover. **Decision pending.**
 
 | # | Milestone | Done when |
 | --- | --- | --- |
-| M0 | Re-capture bozemanmakers.org and diff against `archive/`; download hero image, release PDF, Hebocon assets; pull wiki FAQ text | Archive current; assets in repo |
+| M0 | Capture assets: hero image, release PDF, wiki FAQ text; archive the original hero. Re-capture/diff skipped 2026-11-16 (live site unchanged). | Assets in repo |
 | M1 | Scaffold Astro, port tokens/components, layout shell (header, menu, footer, shield), connect Cloudflare Pages | Blank site live at `*.pages.dev` |
 | M2 | Page templates: seven pages built with the shared components and layout, copy stubbed | Every page renders on `pages.dev`; structure and components are final |
 | M3 | Copy pass: every visible string transcribed from `archive/` or the wiki with a `source:` comment; typo fixes logged in the PR | A person has read each page against the source; no `TODO`s left |

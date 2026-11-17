@@ -74,6 +74,7 @@ Still open: secondary decisions D9–D14 and the verification list V1–V14 in `
 
 ## Snapshot warning
 
-The audit reflects the site as served on **2026-11-15**. Before the build starts, re-capture the archive
-(commands are in `01-current-site-audit.md` §11) and diff it against `docs/archive/` so any edits made on
-WordPress.com in the meantime are not lost.
+The audit reflects the site as served on **2026-11-15**. The archive in `docs/archive/` is the source of
+truth for the rebuild; re-capturing it was intentionally skipped on 2026-11-16 because the live site had
+not changed. If the WordPress.com site is edited before cutover, re-run the capture in
+`01-current-site-audit.md` §11 and diff it against `docs/archive/`.

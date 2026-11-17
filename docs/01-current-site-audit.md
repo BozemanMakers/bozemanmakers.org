@@ -215,7 +215,7 @@ Target stack:
 put into the wiki. Hosting is not the only saving — the paid WordPress.com features being used (hosted
 contact form, custom domain, ad removal) are all replaced by free equivalents.
 
-## 11. Re-capture command (run before the rebuild, then diff against `docs/archive/`)
+## 11. Re-capture command (only if the live site changes; the 2026-11-15 archive is the build source)
 
 ```bash
 mkdir -p /tmp/bms-capture && cd /tmp/bms-capture

@@ -14,7 +14,7 @@ npm run preview   # preview the built site
 npm run check     # Astro + TypeScript checks
 ```
 
-Node 24 is pinned in `.tool-versions` (asdf).
+Node 24 is pinned in `.tool-versions` (asdf) and `.nvmrc` (Cloudflare's build image).
 
 ## Layout
 
@@ -91,7 +91,6 @@ anchors and the 29 bylaws anchors are kept at their original IDs; see
 
 - Confirm the facts in `docs/06-open-questions.md` V1–V14 (officers, prices,
   hours, address, tax-deductible wording).
-- Re-capture the live site and diff against `docs/archive/` (M0).
 - Fill the `TODO(copy)` items: the tools intro sentence and the contact privacy
   note.
 - Verify the calendar while logged out, submit the form to a real inbox, and

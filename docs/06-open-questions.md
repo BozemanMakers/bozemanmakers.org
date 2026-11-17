@@ -96,7 +96,8 @@ A shared password manager entry list (not in this repo) should be created during
 
 1. **Confirm D1–D7** (one meeting, ~30 minutes) and note the answers in this file.
 2. **Book an officer 20 minutes** to confirm V1–V14; mark each as confirmed with a date.
-3. **Phase 1 capture** (assets + diff against `docs/archive/`) — 1–2 hours.
+3. **Phase 1 capture** is done (assets in the repo); the re-capture/diff was skipped on 2026-11-16 because
+   the live site was unchanged.
 4. Scaffold the Astro project and deploy a preview URL so the officers can review before any DNS changes.
 5. Only after the preview is approved: do the DNS/email cutover during a quiet weekday, not before a
    Thursday Open Build.
