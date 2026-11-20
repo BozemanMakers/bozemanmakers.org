@@ -1,5 +1,10 @@
 /* Site layout. Component styles live in components.css; tokens in tokens.css. */
 
+:root {
+  --page-max: 1200px;
+  --page-gutter: max(var(--space-5), calc((100% - var(--page-max)) / 2));
+}
+
 *,
 *::before,
 *::after {
@@ -80,6 +85,7 @@ a:hover {
 .site-header {
   position: relative;
   z-index: 10;
+  padding-top: var(--space-2);
   border-bottom: var(--border-firm) solid var(--ink);
 }
 
@@ -89,7 +95,7 @@ a:hover {
   justify-content: space-between;
   gap: var(--space-4);
   height: 96px;
-  padding: 0 var(--space-5);
+  padding: 0 var(--page-gutter);
 }
 
 .brand {
@@ -171,7 +177,7 @@ a:hover {
   display: grid;
   grid-template-columns: 1.05fr 1fr;
   gap: var(--space-5);
-  padding: 72px var(--space-5) var(--space-5);
+  padding: 72px var(--page-gutter) var(--space-5);
   border-bottom: var(--border-firm) solid var(--ink);
 }
 
@@ -252,7 +258,7 @@ a:hover {
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: var(--space-4);
-  padding: 20px var(--space-5);
+  padding: 20px var(--page-gutter);
   background: var(--ink);
   color: var(--paper);
 }
@@ -285,7 +291,7 @@ a:hover {
 
 .page-intro,
 .section {
-  padding: var(--space-5);
+  padding: var(--space-5) var(--page-gutter);
   border-bottom: var(--border-firm) solid var(--ink);
 }
 
@@ -648,7 +654,7 @@ a:hover {
 /* 404 ------------------------------------------------------------------- */
 
 .not-found {
-  padding: 96px var(--space-5);
+  padding: 96px var(--page-gutter);
 }
 
 .not-found h1 {
@@ -660,7 +666,7 @@ a:hover {
 /* Footer ---------------------------------------------------------------- */
 
 .site-footer {
-  padding: var(--space-5);
+  padding: var(--space-5) var(--page-gutter);
   background: var(--ink);
   color: var(--paper);
 }
@@ -739,9 +745,9 @@ a:hover {
     top: 18px;
     height: 100px;
     background: linear-gradient(
-      transparent 0 56px,
-      var(--paper) 56px 62px,
-      transparent 62px
+      transparent 0 65px,
+      var(--paper) 65px 71px,
+      transparent 71px
     );
   }
 
