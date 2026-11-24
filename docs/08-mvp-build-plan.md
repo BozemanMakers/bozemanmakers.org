@@ -37,7 +37,7 @@ The design system sets the look. The architecture docs set structure, URLs and h
 | --- | --- | --- | --- |
 | Nav | Classes · The shop · Membership · Visit + "Book a tour" | Tools · Organization · Contact | **Architecture** (keeps the 5 URLs). Labels from today's menu: `Tools`, `Organization`, `Contact`, `Facebook`, `Photos`, plus `wiki` (from the tools page) |
 | Classes section / class cards | Three invented classes | No classes exist | **Drop.** The Google Calendar embed under "Upcoming Events" replaces it |
-| Membership | Day pass, $60 member, student tier | $20 College Age / $50 Standard | **Real tiers**, styled like the design system's parts-list table |
+| Membership | Day pass, $60 member, student tier | $20 Student Age / $50 Standard | **Real tiers**, styled like the design system's parts-list table |
 | "Open shop tonight" strip | Invented Tuesday hours | Thu 6:30–8:00 PM | Same dark strip, filled with the existing footer hours line |
 | `BZM-xxx` labels | Everywhere | — | **Dropped** |
 | Fonts | Google Fonts `@import` | No third-party font requests | **Self-hosted** via Fontsource; same three typefaces |
@@ -83,10 +83,11 @@ No schema, no copy report, no build-time checks. The site is seven pages; a pers
 - **Visit:** hours table using existing footer labels; wiki FAQ's Open Build answer as an info note
 - **Membership:**
   - Existing intro paragraphs
-  - 18+ release-form sentence + "Kids are welcome with their parents" as a caution note
-  - Tier rows: `College Age (Ages 18-25)` / `$20 / month` and `Standard` / `$50 / month`, each with the
+  - 18+ release-form sentence + "Kids are welcome with their parent or guardian"; note that copies are
+    available if they don't have a printer
+  - Tier rows: `Student Age` / `$20 / month` and `Standard` / `$50 / month`, each with the
     four existing ✓ perks
-  - Buttons `Purchase College Age Membership`, `Purchase Standard Membership` (Memberful plans `78970`,
+  - Buttons `Purchase Student Membership`, `Purchase Standard Membership` (Memberful plans `78970`,
     `75972`)
   - `Manage My Membership` and "Having trouble? Contact an officer"
 - **Upcoming Events:** calendar iframe + `Subscribe for Class and Workshop Announcements` (MailerLite)
@@ -114,8 +115,7 @@ No schema, no copy report, no build-time checks. The site is seven pages; a pers
 
 ### Organization `/organization/`
 
-501(c)(3) line, `2026 Officers` table, link to the wiki page "Current Officers", and the bylaws with all
-29 legacy anchors at their original IDs.
+501(c)(3) line, `2026 Officers` table, and the bylaws with all 29 legacy anchors at their original IDs.
 
 ### Contact `/contact/`
 

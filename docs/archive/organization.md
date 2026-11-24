@@ -6,6 +6,9 @@ Status: VERBATIM archive of rendered page copy (navigation, WordPress footer chr
 Repaired: 2026-11-15 — two headings were split across lines by the html2text conversion
         ("SECTION 4 -- Termination of Membership", "ARTICLE 4 -- Officers"). Merged so they
         render as headings; wording unchanged.
+Repaired: 2026-11-24 — removed six leading spaces from one bylaws paragraph
+        ("The Treasurer is responsible...") that Markdown treated as a code block; wording
+        unchanged.
 -->
 
 Source URL: <https://bozemanmakers.org/organization/>
@@ -237,7 +240,7 @@ indemnity as permitted by law.
 
 ##### Treasurer
 
-       The Treasurer is responsible for monitoring all financial assets of the organization. This includes but is not restricted to:
+The Treasurer is responsible for monitoring all financial assets of the organization. This includes but is not restricted to:
 
   1. keeping record of the organizations budget, 
   2. the collection of membership dues from members, 

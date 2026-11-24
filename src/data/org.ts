@@ -30,11 +30,13 @@ export const org = {
   membership: {
     standard: {
       name: 'Standard',
+      purchaseLabel: 'Purchase Standard Membership',
       price: '$50 / month',
       planId: '75972',
     },
     college: {
-      name: 'College Age (Ages 18-25)',
+      name: 'Student Age',
+      purchaseLabel: 'Purchase Student Membership',
       price: '$20 / month',
       planId: '78970',
     },

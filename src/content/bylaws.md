@@ -184,7 +184,7 @@ indemnity as permitted by law.
 
 <h5 id="treasurer">Treasurer</h5>
 
-       The Treasurer is responsible for monitoring all financial assets of the organization. This includes but is not restricted to:
+The Treasurer is responsible for monitoring all financial assets of the organization. This includes but is not restricted to:
 
   1. keeping record of the organizations budget, 
   2. the collection of membership dues from members, 

@@ -57,7 +57,7 @@ Each page should be a thin template around shared components (`Header`, `Footer`
 2. **What we are** — one paragraph (trimmed from current copy) + link to Wikipedia/makerspace concept.
 3. **Visit** — address (rear entrance), map link, hours table (public vs member), "first time? read the
    new-member guide ↗".
-4. **Membership** — two pricing cards ($50 Standard / $20 College Age) with the four perks and Memberful
+4. **Membership** — two pricing cards ($50 Standard / $20 Student Age) with the four perks and Memberful
    checkout buttons; "manage my membership" link; 18+ and release-form note with PDF link.
 5. **Events** — Google Calendar embed (public) + "subscribe to class announcements" (MailerLite).
 6. **Donate** — PayPal button, tax-deductible line, tool wishlist link, correct `/contact/` link.
@@ -81,7 +81,7 @@ its own URL for the shop QR code. The home page keeps its membership section and
 ### `/organization/`
 
 1. 501(c)(3) statement.
-2. 2026 officers table + link to the wiki Current Officers page (single update point).
+2. 2026 officers table (rendered from the site data; the wiki Current Officers page remains the day-to-day update point).
 3. Bylaws, Articles 1–6, with clean anchors (`#article-1`, `#section-2-1` …) and a table of contents.
 4. Optional "For officers" links to the wiki officer-responsibilities chapter and annual filings.
 

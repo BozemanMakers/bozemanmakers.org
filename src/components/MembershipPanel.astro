@@ -2,6 +2,7 @@
 import Note from './Note.astro';
 import TierTable from './TierTable.astro';
 import { org } from '../data/org';
+import { microcopy } from '../content/microcopy';
 
 interface Props {
   headingLevel?: 2 | 3;
@@ -20,11 +21,15 @@ const { headingLevel = 3 } = Astro.props;
     </p>
   </div>
 
-  <!-- source: archive/home.md:L33-L34 -->
+  <!-- source: archive/home.md:L33-L34; owner edits 2026-11-24: printer copies, parent/guardian -->
   <Note tone="info">
     <p>
-      Members will need a signed <a href={org.releaseForm}>Release Form</a> (PDF,
-      76 KB), and must be 18 or older. Kids are welcome with their parents.
+      Members will need a signed
+      <a href={org.releaseForm} target="_blank" rel="noopener">
+        Release Form<span class="visually-hidden"> ({microcopy.aria.opensNewTab})</span>
+      </a>
+      (PDF, 76 KB), and must be 18 or older. If you don't have a printer, we have
+      copies at the space. Kids are welcome with their parent or guardian.
     </p>
   </Note>
 

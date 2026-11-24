@@ -33,9 +33,9 @@ home, structured data.
 | Member access | 24/7 | home, footer |
 | Email | makers@bozemanmakers.com | footer (obfuscated in markup) |
 | Membership — Standard | $50/month | home pricing card, Memberful plan `75972` |
-| Membership — College Age (18–25) | $20/month | home pricing card, Memberful plan `78970` |
+| Membership — Student Age | $20/month | home pricing card; site label changed from College Age (18–25) on 2026-11-24; Memberful plan `78970` |
 | Included in membership | 24/7 access, all tools, personal storage locker, discounted class fees | home pricing cards, wiki FAQ |
-| Eligibility | 18+; signed release form required | home, release PDF |
+| Eligibility | 18+; signed release form required (copies available at the space) | home, release PDF |
 | Billing | Month-to-month, auto-renews | wiki FAQ |
 | Fob replacement | $5 | wiki fee schedule |
 | Facebook | facebook.com/bozemanmakerspace | menu |
@@ -59,7 +59,7 @@ home, structured data.
 | Hero | Full-bleed photo strip (`img_0426-1.jpeg`), site title + tagline | **REWRITE** | Same hero, re-encoded image; overlay tagline and a primary CTA ("Visit us Thursdays 6:30–8 PM") |
 | Welcome | Address line + three paragraphs explaining what a makerspace is, linking to Wikipedia | **KEEP** (trim) | Shorten to one tight paragraph; the Wikipedia link can stay |
 | Membership intro | Tour at Thursday Open Build; 18+; signed release form; fob sign-out at Open Build | **KEEP** | Membership section; the same block is reused on `/membership/` (shop QR target) |
-| Pricing cards | College Age $20/mo and Standard $50/mo with four ✓ features each + Memberful checkout buttons | **KEEP** | Pricing cards, same Memberful URLs |
+| Pricing cards | Student Age $20/mo and Standard $50/mo with four ✓ features each + Memberful checkout buttons | **KEEP** | Pricing cards, same Memberful URLs |
 | Manage membership | Memberful sign-in link + "contact an officer" | **KEEP** (fix link) | Link to `/contact/` (today's copy points at `bozemanmakers.wordpress.com/contact/`) |
 | Upcoming Events | Google Calendar iframe + "Subscribe for Class and Workshop Announcements" (MailerLite) | **KEEP** (verify) | Calendar embed + newsletter button; verify the calendar is public (audit defect #10) |
 | Donate | PayPal donate button; tax-deductible; checks/cash at events; tool donations + wishlist link | **REWRITE** | Fix wrong contact link; keep PayPal button; link wishlist to `/tools/#tool-wishlist` |
@@ -98,7 +98,7 @@ site keeps **category cards only** — no per-machine list — so the page canno
 | Block | Current content | Decision | Destination |
 | --- | --- | --- | --- |
 | 501(c)(3) statement | One sentence | **KEEP** | `/organization/` intro |
-| 2026 Officers table | 4 rows | **KEEP + link** | Keep the 4-row table (small, high-value) and link to wiki Current Officers |
+| 2026 Officers table | 4 rows | **KEEP** | Keep the 4-row table (small, high-value); the wiki page remains the update source, but the site does not duplicate the link |
 | Bylaws (Articles 1–6, 29 anchors) | ~2,200 words, full legal text | **KEEP** (canonical here) | `/organization/` with clean, stable anchors; the wiki keeps a mirror with a sync banner (decision D2) |
 
 **Why the site is the canonical copy (the wiki mirrors it):**
@@ -160,7 +160,7 @@ the assets will be reused.
 
 - The **membership perk lists** ("24/7 Access / Use of all Makerspace tools / Personal storage locker /
   Discounted class fees") — they match Memberful's plan descriptions.
-- The **price points** ($50 Standard, $20 College Age) and the 18+ / release-form requirement.
+- The **price points** ($50 Standard, $20 Student Age) and the 18+ / release-form requirement.
 - The **address with "(Rear entrance of building)"** — people genuinely get lost.
 - The **hours line**: "Open To The Public: Thurs 6:30 - 8:00 PM · Members: 24/7".
 - The **release form PDF** (re-hosted, not re-typed).

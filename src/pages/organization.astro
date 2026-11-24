@@ -2,7 +2,6 @@
 import Base from '../layouts/Base.astro';
 import Bylaws from '../content/bylaws.md';
 
-import { wiki } from '../data/wiki';
 import { microcopy } from '../content/microcopy';
 
 const meta = microcopy.meta.organization;
@@ -47,11 +46,6 @@ const officers = [
         }
       </tbody>
     </table>
-    <p>
-      <a href={wiki.currentOfficers} target="_blank" rel="noopener">
-        Current Officers ↗
-      </a>
-    </p>
   </section>
 
   <section class="section" aria-labelledby="bylaws">

@@ -12,7 +12,7 @@ export const microcopy = {
     membership: {
       title: 'Membership – Bozeman Makerspace',
       description:
-        'Join the Bozeman Makerspace. Standard $50/month or College Age $20/month, with 24/7 access, all tools and a storage locker.',
+        'Join the Bozeman Makerspace. Standard $50/month or Student Age $20/month, with 24/7 access, all tools and a storage locker.',
     },
     tools: {
       title: 'Tools – Bozeman Makerspace',
@@ -50,6 +50,7 @@ export const microcopy = {
     footerNav: 'Elsewhere',
     bylawsNav: 'Bylaws contents',
     calendar: 'Bozeman Makerspace events calendar',
+    opensNewTab: 'opens in a new tab',
   },
 
   form: {

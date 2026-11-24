@@ -38,7 +38,7 @@ The site and the wiki **disagree in a few places**, and some claims need an offi
 | # | Claim | Where it appears | Action |
 | --- | --- | --- | --- |
 | V1 | **2026 officers**: Madison Swords (Pres.), Sam Koepnick (VP), Spencer Cornish (Treas.), Brett Thompson (Sec.) | Site `/organization/` **and** wiki Current Officers | Confirm current (annual elections are in September per the bylaws) |
-| V2 | Membership: **$50 Standard / $20 College Age (18–25)** | Site pricing cards, wiki FAQ, Memberful plans `75972`/`78970` | Confirm both the price and that Memberful's plan descriptions match |
+| V2 | Membership: **$50 Standard / $20 Student Age** | Site pricing cards, wiki FAQ, Memberful plans `75972`/`78970` | Confirm both the price and that Memberful's plan descriptions match (plan `78970` was College Age 18–25; the site label is now Student Age) |
 | V3 | Hours: **public Thursdays 6:30–8:00 PM**, members 24/7 | Site footer + home, wiki FAQ | Confirm no seasonal change |
 | V4 | Address: **10 Innovation Ln Unit D, rear entrance** | Site footer/home, wiki FAQ | Confirm; also confirm the Google Maps pin (`goo.gl/maps/jH1bcA8uk3vs2Th87`) still lands on the right building |
 | V5 | **Security deposit** mentioned in the bylaws ("monthly membership fee and security deposit as determined by the officers") | Bylaws Art. 2 §2, §6 | The site says nothing about a deposit and Memberful charges only the monthly plan — is a deposit still collected? Clarify or clean up the bylaws text |
