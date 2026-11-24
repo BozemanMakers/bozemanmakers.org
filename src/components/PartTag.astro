@@ -1,9 +1,0 @@
----
-interface Props {
-  tone?: 'wood' | 'electronics' | 'metal' | 'stop';
-}
-
-const { tone } = Astro.props;
----
-
-<span class:list={['bzm-tag', tone && `bzm-tag--${tone}`]}><slot /></span>

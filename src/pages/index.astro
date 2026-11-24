@@ -33,7 +33,7 @@ const meta = microcopy.meta.home;
     <HeroCarousel />
   </section>
 
-  <!-- source: footer hours line, docs/01-current-site-audit.md:L155-L156 -->
+  <!-- source: footer hours line, docs/decisions/01-current-site-audit.md:L155-L156 -->
   <div class="strip">
     <span><span class="dot"></span><strong>{org.hours.publicLabel}</strong></span>
     <span class="data">
@@ -76,14 +76,14 @@ const meta = microcopy.meta.home;
   </section>
 
   <section class="section" aria-labelledby="visit">
-    <!-- source: footer label, docs/01-current-site-audit.md:L155 -->
+    <!-- source: footer label, docs/decisions/01-current-site-audit.md:L155 -->
     <h2 id="visit">{org.hours.publicLabel}</h2>
     <div class="two-col">
       <HoursTable />
       <!-- source: wiki:faq -->
       <Note tone="info" title="Open Build">
         <p>
-          We are open to the public on Thursdays from 6:30 to 8:00 PM. Anyone
+          We are open to the public on {org.hours.publicLong}. Anyone
           can tour or use our non-restricted tools. Members have 24/7 access.
         </p>
       </Note>
@@ -115,7 +115,7 @@ const meta = microcopy.meta.home;
   </section>
 
   <section class="section" aria-labelledby="donate">
-    <!-- source: archive/home.md:L85-L95; links fixed per docs/08-mvp-build-plan.md §3 -->
+    <!-- source: archive/home.md:L85-L95; links fixed per docs/decisions/08-mvp-build-plan.md §3 -->
     <h2 id="donate">Donate</h2>
     <div class="prose">
       <p>

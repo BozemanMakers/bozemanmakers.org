@@ -7,7 +7,7 @@ export interface NavItem {
   external?: boolean;
 }
 
-// Labels are the current menu's labels (docs/08-mvp-build-plan.md §1).
+// Labels are the current menu's labels (docs/decisions/08-mvp-build-plan.md §1).
 // The logo links home, so "Home" is not repeated in the text nav.
 export const nav: NavItem[] = [
   { label: 'Tools', href: '/tools/' },

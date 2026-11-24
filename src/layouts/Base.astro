@@ -47,9 +47,9 @@ const jsonLd = {
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
-      dayOfWeek: 'Thursday',
-      opens: '18:30',
-      closes: '20:00',
+      dayOfWeek: org.hours.publicDay,
+      opens: org.hours.publicOpens,
+      closes: org.hours.publicCloses,
     },
   ],
   sameAs: [org.facebook, org.photos, wiki.home],

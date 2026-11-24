@@ -1,18 +1,19 @@
 // Functional strings only: titles, meta descriptions, alt text, aria labels,
 // form labels and error text. Visible page copy lives in the page templates
-// with a `source:` comment. See docs/08-mvp-build-plan.md §2.
+// with a `source:` comment. See docs/decisions/08-mvp-build-plan.md §2.
+// Facts (hours, address, prices) come from src/data/org.ts, not typed here.
+
+import { org } from '../data/org';
 
 export const microcopy = {
   meta: {
     home: {
       title: 'Bozeman Makerspace – A community workshop in Bozeman Montana',
-      description:
-        'A community workshop in Bozeman, Montana. Open to the public Thursdays 6:30–8:00 PM at 10 Innovation Ln Unit D. Members have 24/7 access.',
+      description: `A community workshop in Bozeman, Montana. Open to the public ${org.hours.publicLong} at ${org.address.street}. Members have 24/7 access.`,
     },
     membership: {
       title: 'Membership – Bozeman Makerspace',
-      description:
-        'Join the Bozeman Makerspace. Standard $50/month or Student Age $20/month, with 24/7 access, all tools and a storage locker.',
+      description: `Join the Bozeman Makerspace. Standard ${org.membership.standard.price} or Student Age ${org.membership.college.price}, with 24/7 access, all tools and a storage locker.`,
     },
     tools: {
       title: 'Tools – Bozeman Makerspace',

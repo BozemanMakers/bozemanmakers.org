@@ -1,3 +1,7 @@
+# Sitemap: Astro generates sitemap-index.xml at build. Keep the old URL that
+# search engines already know, serving the same content.
+/sitemap.xml              /sitemap-index.xml                      200
+
 # Retired content
 /hebocon/                 /                                       301
 /hebocon                  /                                       301

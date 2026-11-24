@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// Static output. The contact form is a Cloudflare Pages Function in /functions,
+// Static output. The contact form is a Cloudflare Worker in worker/ (POST /api/contact),
 // so no Astro adapter is needed and the build stays host-agnostic.
 export default defineConfig({
   site: 'https://bozemanmakers.org',

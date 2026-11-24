@@ -1,6 +1,6 @@
 # 02 — Content inventory: what moves, what changes, what goes
 
-Verbatim source copy for every page is in [`archive/`](archive/) (captured 2026-11-15). This document
+Verbatim source copy for every page is in [`archive/`](../archive/) (captured 2026-11-15). This document
 turns that copy into decisions. Line references are to the archive files.
 
 **Decision key**
@@ -52,7 +52,7 @@ home, structured data.
 
 ## 2. Page-by-page
 
-### 2.1 Home — `/` (archive: [`home.md`](archive/home.md))
+### 2.1 Home — `/` (archive: [`home.md`](../archive/home.md))
 
 | Block | Current content | Decision | Destination in new site |
 | --- | --- | --- | --- |
@@ -72,7 +72,7 @@ Missing from today's home page (recommended **NEW**):
 - A **privacy note** near the contact form / newsletter ("we use your email only for X").
 - Nav items for **Wiki** and a **Visit / Join** anchor.
 
-### 2.2 Tools — `/tools/` (archive: [`tools.md`](archive/tools.md))
+### 2.2 Tools — `/tools/` (archive: [`tools.md`](../archive/tools.md))
 
 | Block | Current content | Decision | Destination |
 | --- | --- | --- | --- |
@@ -93,7 +93,7 @@ list is already out of sync (audit defects #4, #6, #7) and cannot show restricti
 site keeps **category cards only** — no per-machine list — so the page cannot drift again. See
 `03-wiki-content-map.md` for the exact per-category links and coverage gaps.
 
-### 2.3 Organization — `/organization/` (archive: [`organization.md`](archive/organization.md))
+### 2.3 Organization — `/organization/` (archive: [`organization.md`](../archive/organization.md))
 
 | Block | Current content | Decision | Destination |
 | --- | --- | --- | --- |
@@ -118,7 +118,7 @@ site copy with a "last synced" date, and both are updated in the same commit whe
 The same applies to the officers table (wiki = day-to-day update point, site = rendered copy).
 
 
-### 2.4 Contact — `/contact/` (archive: [`contact.md`](archive/contact.md))
+### 2.4 Contact — `/contact/` (archive: [`contact.md`](../archive/contact.md))
 
 | Block | Current content | Decision | Destination |
 | --- | --- | --- | --- |
@@ -127,7 +127,7 @@ The same applies to the officers table (wiki = day-to-day update point, site = r
 | Address/hours/email | Footer block | **KEEP** | Also show a compact contact card beside the form |
 | Missing | — | **NEW** | Direct `mailto:` fallback, expected response time, "for training requests use Slack `#class-requests`", FAQ link |
 
-### 2.5 Thank You — `/thank-you/` (archive: [`thank-you.md`](archive/thank-you.md))
+### 2.5 Thank You — `/thank-you/` (archive: [`thank-you.md`](../archive/thank-you.md))
 
 | Block | Current content | Decision | Destination |
 | --- | --- | --- | --- |
@@ -136,7 +136,7 @@ The same applies to the officers table (wiki = day-to-day update point, site = r
 Determine what currently sends people here (form submission and/or the PayPal button's return URL) and
 keep that behaviour — see `06-open-questions.md` §3.
 
-### 2.6 Hebocon ’21 — `/hebocon/` (archive: [`hebocon.md`](archive/hebocon.md))
+### 2.6 Hebocon ’21 — `/hebocon/` (archive: [`hebocon.md`](../archive/hebocon.md))
 
 | Block | Current content | Decision |
 | --- | --- | --- |

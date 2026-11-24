@@ -1,11 +1,10 @@
 // Canonical facts. Edit here, not in page templates.
-// Sources: docs/02-content-inventory.md §1, docs/archive/*.md, live site 2026-11-15.
-// V-numbers refer to the verification list in docs/06-open-questions.md.
+// Sources: docs/decisions/02-content-inventory.md §1, docs/archive/*.md, live site 2026-11-15.
+// V-numbers refer to the verification list in docs/decisions/06-open-questions.md.
 
 export const org = {
   name: 'Bozeman Makerspace',
   tagline: 'A community workshop in Bozeman Montana',
-  legalStatus: '501(c)(3) nonprofit organization',
 
   address: {
     street: '10 Innovation Ln Unit D',
@@ -23,6 +22,10 @@ export const org = {
   hours: {
     publicLabel: 'Open To The Public',
     public: 'Thurs 6:30 - 8:00 PM',
+    publicLong: 'Thursdays from 6:30 to 8:00 PM',
+    publicDay: 'Thursday',
+    publicOpens: '18:30',
+    publicCloses: '20:00',
     membersLabel: 'Members',
     members: '24/7',
   },

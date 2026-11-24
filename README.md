@@ -1,8 +1,8 @@
 # bozemanmakers.org
 
 Static site for the Bozeman Makerspace, built with Astro 5 and deployed to
-Cloudflare Workers. The migration plan and the archived source copy live in
-[`docs/`](docs/); start with [`docs/08-mvp-build-plan.md`](docs/08-mvp-build-plan.md).
+Cloudflare Workers. The planning record and archived source copy live in
+[`docs/`](docs/); see [`docs/README.md`](docs/README.md) for what is where.
 
 ## Commands
 
@@ -25,8 +25,8 @@ src/
   assets/hero/             shop photos for the home carousel, optimised at build
   components/              Header, Footer, Button, TicketCard, Note, …
   content/bylaws.md        verbatim bylaws, explicit anchor IDs
-  content/microcopy.ts     meta/alt/aria/form strings
-  data/org.ts              canonical facts (address, hours, prices, links)
+  content/microcopy.ts     meta/alt/aria/form strings (facts come from data/org.ts)
+  data/org.ts              canonical facts: address, hours, prices, links. Edit facts here.
   data/wiki.ts             every wiki URL
   data/nav.ts              nav labels
   layouts/Base.astro       head, JSON-LD, header/footer shell
@@ -36,6 +36,7 @@ worker/index.ts            Worker entry: routes /api/*, serves assets
 worker/contact.ts          contact handler (POST /api/contact)
 wrangler.jsonc             Workers config: static assets + /api/* routing
 public/                    _redirects, _headers, .assetsignore, robots.txt, favicon, release PDF
+docs/                      planning record, page archive, design system (see docs/README.md)
 ```
 
 ## Hero photos
@@ -60,10 +61,13 @@ Visible copy is transcribed from the archived site (`docs/archive/`) or the wiki
 with a `<!-- source: … -->` comment at each block. Do not add marketing copy.
 Unwritten strings are marked `TODO(copy)` and fixed before launch. Typos are
 fixed in place and the original is noted in the PR. See
-[`docs/08-mvp-build-plan.md`](docs/08-mvp-build-plan.md) §0–2.
+[`docs/decisions/08-mvp-build-plan.md`](docs/decisions/08-mvp-build-plan.md) §0–2.
 
 Functional strings (titles, meta descriptions, alt text, aria labels, form
-labels) live in `src/content/microcopy.ts`.
+labels) live in `src/content/microcopy.ts`. Hours, prices and the address are
+typed once, in `src/data/org.ts`; the pages, meta descriptions and structured
+data read them from there. Change them there, then check the home and
+membership pages.
 
 ## Contact form
 
@@ -104,13 +108,13 @@ replacing.
 The five live paths (`/`, `/tools/`, `/organization/`, `/contact/`,
 `/thank-you/`) are preserved, and `/membership/` is the new shop-QR signup page. Retired WordPress URLs 301
 to `/`. The 19 tool anchors and the 29 bylaws anchors are kept at their original IDs; see
-[`docs/05-url-and-redirect-map.md`](docs/05-url-and-redirect-map.md).
+[`docs/decisions/05-url-and-redirect-map.md`](docs/decisions/05-url-and-redirect-map.md).
 
 ## Before launch
 
-- Confirm the facts in `docs/06-open-questions.md` V1–V14 (officers, prices,
+- Confirm the facts in `docs/decisions/06-open-questions.md` V1–V14 (officers, prices,
   hours, address, tax-deductible wording).
 - Fill the `TODO(copy)` items: the tools intro sentence and the contact privacy
   note.
 - Verify the calendar while logged out, submit the form to a real inbox, and
-  check the redirects in `docs/05-url-and-redirect-map.md` §8.
+  check the redirects in `docs/decisions/05-url-and-redirect-map.md` §8.
