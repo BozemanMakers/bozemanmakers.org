@@ -56,7 +56,7 @@ home, structured data.
 
 | Block | Current content | Decision | Destination in new site |
 | --- | --- | --- | --- |
-| Hero | Full-bleed photo strip (`img_0426-1.jpeg`), site title + tagline | **REWRITE** | Same hero, re-encoded image; overlay tagline and a primary CTA ("Visit us Thursdays 6:30–8 PM") |
+| Hero | Full-bleed photo strip (`img_0426-1.jpeg`), site title + tagline | **REWRITE** | Same hero photos, re-encoded; now a small carousel beside the tagline and primary CTA ("Visit us Thursdays 6:30–8 PM") |
 | Welcome | Address line + three paragraphs explaining what a makerspace is, linking to Wikipedia | **KEEP** (trim) | Shorten to one tight paragraph; the Wikipedia link can stay |
 | Membership intro | Tour at Thursday Open Build; 18+; signed release form; fob sign-out at Open Build | **KEEP** | Membership section; the same block is reused on `/membership/` (shop QR target) |
 | Pricing cards | Student Age $20/mo and Standard $50/mo with four ✓ features each + Memberful checkout buttons | **KEEP** | Pricing cards, same Memberful URLs |

@@ -50,6 +50,10 @@ export const microcopy = {
     footerNav: 'Elsewhere',
     bylawsNav: 'Bylaws contents',
     calendar: 'Bozeman Makerspace events calendar',
+    carousel: 'Photos of the Bozeman Makerspace',
+    prevPhoto: 'Previous photo',
+    nextPhoto: 'Next photo',
+    showPhoto: 'Show photo',
     opensNewTab: 'opens in a new tab',
   },
 

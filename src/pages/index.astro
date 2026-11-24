@@ -1,9 +1,7 @@
 ---
-import { Image } from 'astro:assets';
-import hero from '../assets/hero.jpg';
-
 import Base from '../layouts/Base.astro';
 import Button from '../components/Button.astro';
+import HeroCarousel from '../components/HeroCarousel.astro';
 import HoursTable from '../components/HoursTable.astro';
 import MembershipPanel from '../components/MembershipPanel.astro';
 import Note from '../components/Note.astro';
@@ -32,17 +30,7 @@ const meta = microcopy.meta.home;
       </div>
     </div>
 
-    <div class="hero-photo">
-      <Image
-        src={hero}
-        alt={microcopy.alt.hero}
-        widths={[480, 720, 960, 1280]}
-        sizes="(min-width: 56.25em) 48vw, 100vw"
-        quality={60}
-        loading="eager"
-        fetchpriority="high"
-      />
-    </div>
+    <HeroCarousel />
   </section>
 
   <!-- source: footer hours line, docs/01-current-site-audit.md:L155-L156 -->

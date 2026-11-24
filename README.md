@@ -22,7 +22,7 @@ Node 24 is pinned in `.tool-versions` (asdf) and `.nvmrc` (Cloudflare's build im
 
 ```text
 src/
-  assets/hero.jpg          shop photo, optimised at build
+  assets/hero/             shop photos for the home carousel, optimised at build
   components/              Header, Footer, Button, TicketCard, Note, …
   content/bylaws.md        verbatim bylaws, explicit anchor IDs
   content/microcopy.ts     meta/alt/aria/form strings
@@ -37,6 +37,13 @@ worker/contact.ts          contact handler (POST /api/contact)
 wrangler.jsonc             Workers config: static assets + /api/* routing
 public/                    _redirects, _headers, .assetsignore, robots.txt, favicon, release PDF
 ```
+
+## Hero photos
+
+The home page carousel reads every image in `src/assets/hero/`, sorted by filename. To add a
+photo, drop it in as `02-something.jpg` (then `03-…`, and so on) and add its alt text to the
+`heroPhotoAlt` map in `src/data/heroPhotos.ts`. With one photo the carousel renders as a
+plain still image; controls appear at two or more. No `px` values — keep new CSS relative.
 
 ## Theme
 

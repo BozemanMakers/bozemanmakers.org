@@ -104,7 +104,7 @@ Same copy as today, plus a secondary CTA back to the home page and a "what happe
 ├─ docs/                     ← these documents
 ├─ public/
 │  ├─ forms/member-and-guest-release.pdf
-│  ├─ images/hero.jpg|avif|webp
+│  ├─ images/hero/          carousel photos (jpg/png/webp), optimised at build
 │  ├─ favicon.svg, apple-touch-icon.png
 │  └─ robots.txt
 ├─ src/
