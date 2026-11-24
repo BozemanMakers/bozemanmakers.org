@@ -122,7 +122,8 @@ No schema, no copy report, no build-time checks. The site is seven pages; a pers
 - Intro: "Send questions or comments…" (logged typo fix from "Send a questions")
 - Form: `Name`, `Email`, `Message`, `(required)`, `Submit`
 - Contact card: footer strings `Location` and `E-mail makers@bozemanmakers.com`
-- Training note from the wiki: "Post a request in the #class-requests channel on Slack."
+- Training note from the wiki: "Post a request in the #class-requests channel on Slack", framed for
+  members ("Already a member?") with a pointer back to the form for non-members
 - Link to the wiki "Frequently Asked Questions"
 
 ### Thank You `/thank-you/`
