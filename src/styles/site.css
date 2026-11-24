@@ -356,6 +356,21 @@ a:hover {
   cursor: not-allowed;
 }
 
+.hero-carousel__icon {
+  display: grid;
+  place-items: center;
+}
+
+.hero-carousel__icon[hidden] {
+  display: none;
+}
+
+.hero-carousel__icon svg {
+  width: 0.75rem;
+  height: 0.75rem;
+  fill: currentColor;
+}
+
 /* Dark hours strip ------------------------------------------------------ */
 
 .strip {

@@ -54,6 +54,8 @@ export const microcopy = {
     prevPhoto: 'Previous photo',
     nextPhoto: 'Next photo',
     showPhoto: 'Show photo',
+    pauseSlideshow: 'Pause slideshow',
+    playSlideshow: 'Play slideshow',
     opensNewTab: 'opens in a new tab',
   },
 

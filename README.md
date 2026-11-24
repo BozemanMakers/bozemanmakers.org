@@ -43,7 +43,10 @@ public/                    _redirects, _headers, .assetsignore, robots.txt, favi
 The home page carousel reads every image in `src/assets/hero/`, sorted by filename. To add a
 photo, drop it in as `02-something.jpg` (then `03-…`, and so on) and add its alt text to the
 `heroPhotoAlt` map in `src/data/heroPhotos.ts`. With one photo the carousel renders as a
-plain still image; controls appear at two or more. No `px` values — keep new CSS relative.
+plain still image; controls appear at two or more. With two or more it autoplays every 6
+seconds and pauses on hover, focus, when scrolled out of view, when the tab is hidden, or
+when the visitor asks for reduced motion. There is also a pause/play button. No `px` values —
+keep new CSS relative.
 
 ## Theme
 

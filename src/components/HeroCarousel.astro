@@ -84,6 +84,27 @@ const total = photos.length;
           <button
             type="button"
             class="hero-carousel__btn"
+            data-hero-toggle
+            data-label-pause={microcopy.aria.pauseSlideshow}
+            data-label-play={microcopy.aria.playSlideshow}
+            aria-label={microcopy.aria.pauseSlideshow}
+            title={microcopy.aria.pauseSlideshow}
+          >
+            <span class="hero-carousel__icon" data-hero-icon="pause" aria-hidden="true">
+              <svg viewBox="0 0 12 12" focusable="false">
+                <rect x="1.5" y="1" width="3" height="10"></rect>
+                <rect x="7.5" y="1" width="3" height="10"></rect>
+              </svg>
+            </span>
+            <span class="hero-carousel__icon" data-hero-icon="play" aria-hidden="true" hidden>
+              <svg viewBox="0 0 12 12" focusable="false">
+                <path d="M2 1 11 6 2 11Z"></path>
+              </svg>
+            </span>
+          </button>
+          <button
+            type="button"
+            class="hero-carousel__btn"
             data-hero-prev
             aria-label={microcopy.aria.prevPhoto}
           >
@@ -104,6 +125,7 @@ const total = photos.length;
 </div>
 
 <script>
+  const AUTOPLAY_MS = 6000;
   const prefersReducedMotion = window.matchMedia(
     '(prefers-reduced-motion: reduce)'
   ).matches;
@@ -120,6 +142,9 @@ const total = photos.length;
     );
     const prev = root.querySelector<HTMLButtonElement>('[data-hero-prev]');
     const next = root.querySelector<HTMLButtonElement>('[data-hero-next]');
+    const toggle = root.querySelector<HTMLButtonElement>('[data-hero-toggle]');
+    const pauseIcon = root.querySelector<HTMLElement>('[data-hero-icon="pause"]');
+    const playIcon = root.querySelector<HTMLElement>('[data-hero-icon="play"]');
     const count = root.querySelector<HTMLElement>('[data-hero-count]');
     const status = root.querySelector<HTMLElement>('[data-hero-status]');
 
@@ -127,6 +152,11 @@ const total = photos.length;
 
     let index = 0;
     let frame = 0;
+    let timer = 0;
+    let paused = prefersReducedMotion;
+    let hovering = false;
+    let focused = false;
+    let onscreen = true;
 
     const render = () => {
       for (const [i, dot] of dots.entries()) {
@@ -151,6 +181,31 @@ const total = photos.length;
       render();
     };
 
+    const syncAutoplay = () => {
+      window.clearTimeout(timer);
+      const playing = !paused;
+      const pauseLabel = toggle?.dataset.labelPause ?? 'Pause slideshow';
+      const playLabel = toggle?.dataset.labelPlay ?? 'Play slideshow';
+      if (toggle) {
+        toggle.setAttribute('aria-label', playing ? pauseLabel : playLabel);
+        toggle.setAttribute('title', playing ? pauseLabel : playLabel);
+      }
+      pauseIcon?.toggleAttribute('hidden', !playing);
+      playIcon?.toggleAttribute('hidden', playing);
+
+      if (paused || hovering || focused || !onscreen || document.hidden) return;
+
+      timer = window.setTimeout(() => {
+        go(index + 1 >= slides.length ? 0 : index + 1);
+        syncAutoplay();
+      }, AUTOPLAY_MS);
+    };
+
+    const goManually = (target: number) => {
+      go(target);
+      syncAutoplay();
+    };
+
     const sync = () => {
       frame = 0;
       if (!track.clientWidth) return;
@@ -169,27 +224,68 @@ const total = photos.length;
       { passive: true }
     );
 
-    prev?.addEventListener('click', () => go(index - 1));
-    next?.addEventListener('click', () => go(index + 1));
-    dots.forEach((dot, i) => dot.addEventListener('click', () => go(i)));
+    prev?.addEventListener('click', () => goManually(index - 1));
+    next?.addEventListener('click', () => goManually(index + 1));
+    dots.forEach((dot, i) => dot.addEventListener('click', () => goManually(i)));
+
+    toggle?.addEventListener('click', () => {
+      paused = !paused;
+      syncAutoplay();
+    });
+
+    root.addEventListener('pointerenter', (event) => {
+      if (event.pointerType !== 'mouse') return;
+      hovering = true;
+      syncAutoplay();
+    });
+
+    root.addEventListener('pointerleave', (event) => {
+      if (event.pointerType !== 'mouse') return;
+      hovering = false;
+      syncAutoplay();
+    });
+
+    root.addEventListener('focusin', () => {
+      focused = true;
+      syncAutoplay();
+    });
+
+    root.addEventListener('focusout', (event) => {
+      if (root.contains(event.relatedTarget as Node | null)) return;
+      focused = false;
+      syncAutoplay();
+    });
+
+    document.addEventListener('visibilitychange', syncAutoplay);
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(
+        ([entry]) => {
+          onscreen = entry.isIntersecting;
+          syncAutoplay();
+        },
+        { threshold: 0.25 }
+      ).observe(root);
+    }
 
     track.addEventListener('keydown', (event) => {
       if (event.key === 'ArrowLeft') {
         event.preventDefault();
-        go(index - 1);
+        goManually(index - 1);
       } else if (event.key === 'ArrowRight') {
         event.preventDefault();
-        go(index + 1);
+        goManually(index + 1);
       } else if (event.key === 'Home') {
         event.preventDefault();
-        go(0);
+        goManually(0);
       } else if (event.key === 'End') {
         event.preventDefault();
-        go(slides.length - 1);
+        goManually(slides.length - 1);
       }
     });
 
     window.addEventListener('resize', () => go(index, false));
     render();
+    syncAutoplay();
   }
 </script>
