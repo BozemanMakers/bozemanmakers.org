@@ -78,12 +78,13 @@ variables in the Worker's **Settings → Variables & Secrets**:
 | --- | --- | --- |
 | `RESEND_API_KEY` | `re_…` | Required |
 | `CONTACT_TO` | `makers@bozemanmakers.com` | Shared officers' mailbox |
-| `CONTACT_FROM` | `Bozeman Makerspace <website@bozemanmakers.org>` | Must be a verified Resend domain |
+| `CONTACT_FROM` | `Bozeman Makerspace <website@bozemanmakers.com>` | Must be a verified Resend domain |
 | `TURNSTILE_SECRET_KEY` | `0x…` | Optional; only set it after adding the widget |
 
 Without `RESEND_API_KEY` the endpoint returns 503 and the page's `mailto:` link
-is the fallback. Turnstile is off by default; the honeypot and a best-effort
-per-IP limit are always on.
+is the fallback. Turnstile is off by default; the honeypot, a best-effort
+per-IP limit, a cross-origin check and a link filter (no links in the name, at most two
+in the message) are always on.
 
 ## Deploy
 

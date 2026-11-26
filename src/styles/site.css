@@ -403,7 +403,7 @@ a:hover {
   height: 0.75rem;
   margin-right: 0.5rem;
   border-radius: 50%;
-  background: var(--enamel);
+  background: var(--enamel-lamp);
   box-shadow: 0 0 0 0.1875rem var(--paper);
 }
 
@@ -417,6 +417,17 @@ a:hover {
 
 .page-intro {
   padding-top: 4.5rem;
+}
+
+/* Text-heavy pages: no divider; the next heading's space does the work. */
+.page-intro.flat,
+.section.flat {
+  border-bottom: 0;
+}
+
+.page-intro.flat,
+.section.flat:not(:last-of-type) {
+  padding-bottom: 0;
 }
 
 .page-intro h1 {
@@ -589,38 +600,69 @@ a:hover {
 
 /* Tool cards ------------------------------------------------------------ */
 
+.tools-body .card-grid {
+  margin-top: var(--space-4);
+}
+
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(16.25rem, 1fr));
-  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(max(16.25rem, 30%), 1fr));
+  gap: var(--space-3);
 }
 
 .tool-card {
   max-width: none;
+  padding: 0;
 }
 
-.tool-card--wood {
-  border-top: 0.5rem solid var(--brass);
+/* No punched hole on these compact cards. */
+.tool-card::before {
+  display: none;
 }
 
-.tool-card--electronics {
-  border-top: 0.5rem solid var(--gauge);
-}
-
-.tool-card--metal {
-  border-top: 0.5rem solid var(--ink);
+/* Empty spans that only keep old in-page links working. */
+.tool-card > span {
+  position: absolute;
 }
 
 .tool-card__link {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
   color: var(--ink);
   text-decoration: none;
 }
 
-.tool-card__link:hover .bzm-card__title {
+.tool-card__icon {
+  font-family: 'Noto Emoji', sans-serif;
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+/* Push the external-link arrow to the far edge. */
+.tool-card__link h3 {
+  margin-right: auto;
+}
+
+.tool-card__link:hover {
   color: var(--enamel-ink);
+}
+
+.bzm-note__body--icon {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.bzm-note__body--icon p {
+  margin: 0;
+}
+
+.bzm-note__icon {
+  font-family: 'Noto Emoji', sans-serif;
+  font-size: 2.5rem;
+  line-height: 1;
 }
 
 .tools-note {
@@ -691,13 +733,12 @@ a:hover {
   width: 100%;
   max-width: 35rem;
   margin: var(--space-3) 0 var(--space-4);
-  border: var(--border-firm) solid var(--ink);
   border-collapse: collapse;
 }
 
 .officers th,
 .officers td {
-  padding: 0.75rem 1rem;
+  padding: var(--space-2) var(--space-3) var(--space-2) 0;
   border-bottom: 0.0625rem solid var(--rule-faint);
   text-align: left;
 }
@@ -720,8 +761,7 @@ a:hover {
 .toc {
   max-width: 70ch;
   margin: var(--space-4) 0;
-  padding: var(--space-3) var(--space-4);
-  border: var(--border-firm) solid var(--ink);
+  padding: 0;
 }
 
 .toc ol {
@@ -805,12 +845,6 @@ a:hover {
   display: block;
   height: 8.75rem;
   width: auto;
-}
-
-.footer-name {
-  margin: var(--space-2) 0 0;
-  font-family: var(--font-display);
-  font-size: 1.25rem;
 }
 
 .footer-nav ul {

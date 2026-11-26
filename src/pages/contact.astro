@@ -29,16 +29,19 @@ const meta = microcopy.meta.contact;
           {microcopy.form.name}
           <span class="required">{microcopy.form.required}</span>
         </label>
-        <input id="name" name="name" type="text" autocomplete="name" required />
+        <input id="name" name="name" type="text" autocomplete="name" maxlength="200" required />
 
         <label for="email">
           {microcopy.form.email}
           <span class="required">{microcopy.form.required}</span>
         </label>
-        <input id="email" name="email" type="email" autocomplete="email" required />
+        <input id="email" name="email" type="email" autocomplete="email" maxlength="320" required />
 
-        <label for="message">{microcopy.form.message}</label>
-        <textarea id="message" name="message" required></textarea>
+        <label for="message">
+          {microcopy.form.message}
+          <span class="required">{microcopy.form.required}</span>
+        </label>
+        <textarea id="message" name="message" maxlength="5000" required></textarea>
 
         <div class="honeypot" aria-hidden="true">
           <label for="company">{microcopy.form.honeypot}</label>

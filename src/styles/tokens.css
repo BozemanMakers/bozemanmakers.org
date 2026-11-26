@@ -7,15 +7,16 @@
   --ink-muted: #58584f;
   --rule: #7d7c6a;
   --rule-faint: #c9c6b4;
-  --enamel: #5d7a68;
-  --enamel-deep: #4a6656;
+  --enamel: #1f7a45;
+  --enamel-deep: #12603a;
   --on-enamel: #f3f1e7;
-  --enamel-ink: #4a6656;
-  --stop: #b33a2c;
-  --brass: #b08d3c;
-  --brass-ink: #7a5f22;
+  --enamel-ink: #12603a;
+  --enamel-lamp: #2ecc71;
+  --stop: #b8200f;
+  --brass: #e0a100;
+  --brass-ink: #755000;
   --on-brass: #20231f;
-  --gauge: #3d5a73;
+  --gauge: #14558f;
   --shadow-block: 0.1875rem 0.1875rem 0 #20231f;
   --shadow-none: none;
 }

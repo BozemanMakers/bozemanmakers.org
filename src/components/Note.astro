@@ -1,16 +1,21 @@
 ---
 interface Props {
-  tone?: 'info';
+  tone?: 'info' | 'stop';
   title?: string;
+  /** Monochrome emoji; the page must import the Noto Emoji font. */
+  icon?: string;
 }
 
-const { tone, title } = Astro.props;
+const { tone, title, icon } = Astro.props;
 ---
 
-<aside class:list={['bzm-note', tone === 'info' && 'bzm-note--info']}>
+<aside class:list={['bzm-note', tone && `bzm-note--${tone}`]}>
   <div class="bzm-note__stripe"></div>
-  <div class="bzm-note__body">
-    {title && <strong>{title}</strong>}
-    <slot />
+  <div class:list={['bzm-note__body', icon && 'bzm-note__body--icon']}>
+    {icon && <span class="bzm-note__icon" aria-hidden="true">{icon}</span>}
+    <div>
+      {title && <strong>{title}</strong>}
+      <slot />
+    </div>
   </div>
 </aside>

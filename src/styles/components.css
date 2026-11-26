@@ -60,4 +60,5 @@ body { background: var(--paper); color: var(--ink); font-family: var(--font-body
 }
 .bzm-note__body { padding: var(--space-3); font-size: 0.9375rem; line-height: 1.5; }
 .bzm-note__body strong { font-family: var(--font-display); font-size: 1.0625rem; display: block; margin-bottom: var(--space-1); }
+.bzm-note--stop .bzm-note__stripe { background: var(--stop); }
 .bzm-note--info .bzm-note__stripe { background: var(--gauge); }

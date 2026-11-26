@@ -2,16 +2,16 @@
 interface Props {
   href: string;
   title: string;
+  icon: string;
   id?: string;
   anchors?: readonly string[];
-  tone?: 'wood' | 'electronics' | 'metal';
   external?: boolean;
 }
 
-const { href, title, id, anchors = [], tone, external = true } = Astro.props;
+const { href, title, icon, id, anchors = [], external = true } = Astro.props;
 ---
 
-<article class:list={['bzm-card', 'tool-card', tone && `tool-card--${tone}`]} id={id}>
+<article class="bzm-card tool-card" id={id}>
   {anchors.map((anchor) => <span id={anchor} aria-hidden="true"></span>)}
   <a
     class="tool-card__link"
@@ -19,7 +19,8 @@ const { href, title, id, anchors = [], tone, external = true } = Astro.props;
     target={external ? '_blank' : undefined}
     rel={external ? 'noopener' : undefined}
   >
+    <span class="tool-card__icon" aria-hidden="true">{icon}</span>
     <h3 class="bzm-card__title">{title}</h3>
-    <span class="bzm-label">wiki</span>
+    {external && <span aria-hidden="true">↗</span>}
   </a>
 </article>

@@ -9,7 +9,6 @@ import { microcopy } from '../content/microcopy';
   <div class="footer-inner">
     <div class="footer-brand">
       <Shield />
-      <p class="footer-name">{org.name}</p>
     </div>
 
     <nav class="footer-nav" aria-label={microcopy.aria.footerNav}>
@@ -45,7 +44,7 @@ import { microcopy } from '../content/microcopy';
   </div>
 
   <div class="footer-fine">
-    <span>{org.name}</span>
+    <span>© {new Date().getFullYear()} {org.name}</span>
     <span>Est. 2011</span>
   </div>
 </footer>

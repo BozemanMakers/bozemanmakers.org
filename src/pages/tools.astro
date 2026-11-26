@@ -1,4 +1,5 @@
 ---
+import '@fontsource/noto-emoji/400.css';
 import Base from '../layouts/Base.astro';
 import Note from '../components/Note.astro';
 import TicketCard from '../components/TicketCard.astro';
@@ -12,12 +13,8 @@ const meta = microcopy.meta.tools;
 ---
 
 <Base title={meta.title} description={meta.description}>
-  <div class="page-intro">
+  <div class="page-intro tools-body" id="tools-at-the-makerspace">
     <h1>Tools</h1>
-  </div>
-
-  <section class="section" id="tools-at-the-makerspace" aria-labelledby="tools-heading">
-    <h2 id="tools-heading">Tools at the Makerspace</h2>
     <div class="prose">
       <!-- source: archive/tools.md:L16-L20 -->
       <!-- TODO(copy): "this list" is a placeholder unless approved as-is (docs/decisions/08-mvp-build-plan.md §3). -->
@@ -34,79 +31,72 @@ const meta = microcopy.meta.tools;
         </strong>
       </p>
     </div>
-  </section>
 
-  <section class="section" aria-label="Tools">
     <div class="card-grid">
       <TicketCard
         href={wiki.books.woodworking}
-        title="Woodworking"
+        title="Woodworking" icon="🪚"
         id="woodworking"
         anchors={['big-tools', 'powered-hand-tools', 'manual-hand-tools']}
-        tone="wood"
       />
       <TicketCard
         href={wiki.books.electronics}
-        title="Electronics"
+        title="Electronics" icon="🔌"
         id="electronics"
-        tone="electronics"
       />
       <TicketCard
         href={wiki.books.metalworking}
-        title="Metalworking"
+        title="Metalworking" icon="🔨"
         id="metals"
         anchors={['metalworking', 'machining']}
-        tone="metal"
       />
       <TicketCard
         href={wiki.books.textiles}
-        title="Textiles"
+        title="Textiles" icon="🧵"
         id="crafts-textiles"
         anchors={['sewing', 'vinyl-cutting-accessories', 'miscellaneous']}
       />
-      <TicketCard href={wiki.books.jewelry} title="Jewelry" id="jewelry" />
+      <TicketCard href={wiki.books.jewelry} title="Jewelry" icon="💍" id="jewelry" />
       <TicketCard
         href={wiki.books.printing3d}
-        title="3D Printing"
+        title="3D Printing" icon="🖨"
         id="3d-printers"
         anchors={['other-cnc-computer-controlled-machines']}
-        tone="electronics"
       />
       <TicketCard
         href={wiki.books.laserCutting}
-        title="Laser Cutting"
+        title="Laser Cutting" icon="⚡"
         id="laser-cutter"
-        tone="electronics"
       />
       <!-- TODO(copy): card title vs wiki book name ("Painting") — confirm the label. -->
-      <TicketCard href={wiki.books.painting} title="Painting" id="painting-coating" />
-      <TicketCard href={wiki.books.pottery} title="Pottery" id="pottery" />
+      <TicketCard href={wiki.books.painting} title="Painting" icon="🎨" id="painting-coating" />
+      <TicketCard href={wiki.books.pottery} title="Pottery" icon="🏺" id="pottery" />
     </div>
 
     <div class="tools-note">
       <!-- source: wiki:faq -->
-      <Note tone="info">
+      <Note tone="stop" icon="⚠">
         <p>
           Restricted tools, also called "red tools," are marked with a red sign
-          or sticker. A training session is required before using any of these
+          or sticker. Only members may use them, not guests. A training session is required before using any of these
           tools, regardless of experience. Most trainings take less than 30
           minutes.
         </p>
       </Note>
     </div>
-  </section>
+  </div>
 
   <section class="section" id="tool-wishlist" aria-labelledby="wishlist-heading">
     <!-- source: archive/tools.md:L169-L181 -->
-    <h2 id="wishlist-heading">Tool Wishlist</h2>
+    <h2 id="wishlist-heading">Tool Donations</h2>
     <div class="prose">
       <p>
-        We decided to add an on-going tool wishlist here. If you have a tool you
-        would like to donate to the space, drop us a line at
-        <a href={`mailto:${org.email}`}>{org.email}</a>. New or used tools are
+        If you have a tool you would like to donate to the space, drop us a line
+        at <a href={`mailto:${org.email}`}>{org.email}</a>. New or used tools are
         accepted. Slightly broken tools may also be accepted, however we do not
         want something that is absolutely broken and is headed to the trash bin.
       </p>
+      <p>Some examples of donations we accept:</p>
       <ul>
         <li>More capable digital oscilloscope</li>
         <li>Clamps (can you have too many?)</li>

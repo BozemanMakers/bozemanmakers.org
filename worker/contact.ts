@@ -1,5 +1,6 @@
 // Contact handler for POST /api/contact.
-// Honeypot + best-effort rate limit + optional Turnstile, then Resend.
+// Origin check, honeypot, best-effort rate limit, link filter, optional Turnstile,
+// then Resend.
 // Environment variables (Worker settings, not the repo):
 //   RESEND_API_KEY, CONTACT_TO, CONTACT_FROM, TURNSTILE_SECRET_KEY (optional)
 
@@ -13,6 +14,9 @@ export interface ContactEnv {
 const LIMITS = { name: 200, email: 320, message: 5000 };
 const RATE_WINDOW_MS = 10 * 60 * 1000;
 const RATE_MAX = 5;
+const MAX_LINKS = 2;
+const LINK = /(https?:\/\/|www\.)/gi;
+const LINK_MARKUP = /<a\s[^>]*href|\[url[=\]]/i;
 
 // Best-effort only: one Map per Worker isolate. Not a durable rate limit.
 const hits = new Map<string, { count: number; reset: number }>();
@@ -43,6 +47,21 @@ function escapeHtml(value: string): string {
   return value.replace(/[&<>"']/g, (char) => map[char] ?? char);
 }
 
+// Browsers send Origin on form posts, so another site's Origin means a forged post.
+// A missing Origin is allowed: some privacy tools strip it.
+function isCrossOrigin(request: Request): boolean {
+  const origin = request.headers.get('Origin');
+  return origin !== null && origin !== new URL(request.url).origin;
+}
+
+function looksLikeSpam(name: string, message: string): boolean {
+  return (
+    (name.match(LINK)?.length ?? 0) > 0 ||
+    LINK_MARKUP.test(message) ||
+    (message.match(LINK)?.length ?? 0) > MAX_LINKS
+  );
+}
+
 function errorPage(message: string, status = 400): Response {
   return new Response(
     `<!doctype html><html lang="en"><meta charset="utf-8"><title>Message not sent</title>` +
@@ -56,13 +75,22 @@ export async function handleContact(
   request: Request,
   env: ContactEnv,
 ): Promise<Response> {
+  if (isCrossOrigin(request)) {
+    return errorPage('Please send your message from our contact page.', 403);
+  }
+
   const ip = request.headers.get('CF-Connecting-IP') ?? 'unknown';
 
   if (isRateLimited(ip)) {
     return errorPage('Too many messages. Please try again later.', 429);
   }
 
-  const form = await request.formData();
+  let form: FormData;
+  try {
+    form = await request.formData();
+  } catch {
+    return errorPage('The message could not be read.');
+  }
 
   // Honeypot: real people leave this empty. Pretend it worked.
   if (clean(form.get('company'))) {
@@ -85,6 +113,11 @@ export async function handleContact(
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return errorPage('Please enter a valid email address.');
+  }
+
+  // Tell the sender, rather than dropping it, in case a real person trips this.
+  if (looksLikeSpam(name, message)) {
+    return errorPage('Please remove some links and try again, or email us instead.');
   }
 
   // Optional Turnstile. Only enable it when the widget is on the page and the
