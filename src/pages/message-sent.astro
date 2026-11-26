@@ -1,0 +1,21 @@
+---
+import '@fontsource/noto-emoji/400.css';
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+
+import { microcopy } from '../content/microcopy';
+
+const meta = microcopy.meta.messageSent;
+---
+
+<Base title={meta.title} description={meta.description} noindex>
+  <section class="section thank-you">
+    <span class="thank-you__icon" aria-hidden="true">✉</span>
+    <h1>Message Sent</h1>
+    <p>
+      Thanks for reaching out. The officers will get back to you as quickly as
+      possible.
+    </p>
+    <Button href="/" variant="primary">Go back to homepage</Button>
+  </section>
+</Base>

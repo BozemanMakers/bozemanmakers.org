@@ -94,7 +94,7 @@ export async function handleContact(
 
   // Honeypot: real people leave this empty. Pretend it worked.
   if (clean(form.get('company'))) {
-    return new Response(null, { status: 303, headers: { Location: '/thank-you/' } });
+    return new Response(null, { status: 303, headers: { Location: '/message-sent/' } });
   }
 
   const name = clean(form.get('name'));
@@ -173,5 +173,5 @@ export async function handleContact(
     return errorPage('The message could not be sent. Please email us instead.', 502);
   }
 
-  return new Response(null, { status: 303, headers: { Location: '/thank-you/' } });
+  return new Response(null, { status: 303, headers: { Location: '/message-sent/' } });
 }

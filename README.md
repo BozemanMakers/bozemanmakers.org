@@ -30,7 +30,7 @@ src/
   data/wiki.ts             every wiki URL
   data/nav.ts              nav labels
   layouts/Base.astro       head, JSON-LD, header/footer shell
-  pages/                   index, membership, tools, organization, contact, thank-you, 404
+  pages/                   index, membership, tools, organization, contact, thank-you (new members), message-sent (contact form), 404
   styles/                  design-system tokens + component + site CSS
 worker/index.ts            Worker entry: routes /api/*, serves assets
 worker/contact.ts          contact handler (POST /api/contact)
@@ -107,7 +107,7 @@ replacing.
 ## Redirects and anchors
 
 The five live paths (`/`, `/tools/`, `/organization/`, `/contact/`,
-`/thank-you/`) are preserved, and `/membership/` is the new shop-QR signup page. Retired WordPress URLs 301
+`/thank-you/`) are preserved. `/membership/` is the new shop-QR signup page, Memberful returns new members to `/thank-you/`, and the contact form goes to `/message-sent/`. Retired WordPress URLs 301
 to `/`. The 19 tool anchors and the 29 bylaws anchors are kept at their original IDs; see
 [`docs/decisions/05-url-and-redirect-map.md`](docs/decisions/05-url-and-redirect-map.md).
 

@@ -9,8 +9,8 @@ export default defineConfig({
   build: { format: 'directory' },
   integrations: [
     sitemap({
-      // The form-success page is not a search result.
-      filter: (page) => !page.endsWith('/thank-you/'),
+      // Confirmation pages are not search results.
+      filter: (page) => !/\/(thank-you|message-sent)\/$/.test(page),
     }),
   ],
 });

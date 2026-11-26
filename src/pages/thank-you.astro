@@ -1,31 +1,47 @@
 ---
+import '@fontsource/noto-emoji/400.css';
 import Base from '../layouts/Base.astro';
 import Button from '../components/Button.astro';
 
+import { org } from '../data/org';
 import { microcopy } from '../content/microcopy';
 
 const meta = microcopy.meta.thankYou;
 ---
 
 <Base title={meta.title} description={meta.description} noindex>
-  <div class="page-intro">
+  <section class="section thank-you">
+    <span class="thank-you__icon" aria-hidden="true">🛠</span>
     <!-- source: archive/thank-you.md:L12 -->
     <h1>Thank You</h1>
-  </div>
+    <!-- source: archive/thank-you.md:L14-L16 -->
+    <p>
+      Thank you for supporting the Bozeman Makerspace. We hope to see you down at
+      the Makerspace soon.
+    </p>
 
-  <section class="section">
-    <div class="prose">
-      <!-- source: archive/thank-you.md:L14-L16 -->
-      <p>
-        Thank you for supporting the Bozeman Makerspace. We hope to see you down
-        at the Makerspace soon.
-      </p>
-      <p>Happy Making!</p>
+    <!-- source: the Memberful welcome email. The Slack invite link is left in the
+         email on purpose, so it isn't exposed on a public page. -->
+    <div class="next-steps">
+      <h2>New member? Do these two things now</h2>
+      <ol>
+        <li>
+          <strong>Join our Slack.</strong> Your invite link is in your welcome
+          email. Slack is the only place to request tool classes, and it's where
+          we share what we're working on and real-time space news.
+        </li>
+        <li>
+          <strong>Get your fob and orientation.</strong> Come on a Thursday,
+          {org.hours.public.replace('Thurs ', '')}, to {org.address.display}
+          {' '}{org.address.note}. If Thursdays don't work,
+          <a href={`mailto:${org.email}`}>let us know</a> and we'll find another
+          time.
+        </li>
+      </ol>
     </div>
 
-    <div class="cta-row">
-      <!-- source: archive/thank-you.md:L18 -->
-      <Button href="/">Go back to homepage</Button>
-    </div>
+    <p>Happy Making!</p>
+    <!-- source: archive/thank-you.md:L18 -->
+    <Button href="/">Go back to homepage</Button>
   </section>
 </Base>

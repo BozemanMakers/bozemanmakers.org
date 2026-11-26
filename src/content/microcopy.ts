@@ -34,6 +34,10 @@ export const microcopy = {
       title: 'Thank You – Bozeman Makerspace',
       description: 'Thank you for supporting the Bozeman Makerspace.',
     },
+    messageSent: {
+      title: 'Message Sent – Bozeman Makerspace',
+      description: 'Your message was sent to the Bozeman Makerspace officers.',
+    },
     notFound: {
       title: 'Page not found – Bozeman Makerspace',
       description: 'Page not found – Bozeman Makerspace.',
