@@ -13,7 +13,7 @@ export const microcopy = {
     },
     membership: {
       title: 'Membership – Bozeman Makerspace',
-      description: `Join the Bozeman Makerspace. Standard ${org.membership.standard.price} or Student Age ${org.membership.college.price}, with 24/7 access, all tools and a storage locker.`,
+      description: `Join the Bozeman Makerspace. Standard ${org.membership.standard.price}, Student Age ${org.membership.college.price} or Household ${org.membership.household.price}, with 24/7 access, all tools and a storage locker.`,
     },
     tools: {
       title: 'Tools – Bozeman Makerspace',

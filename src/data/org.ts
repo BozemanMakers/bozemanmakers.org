@@ -33,15 +33,19 @@ export const org = {
   membership: {
     standard: {
       name: 'Standard',
-      purchaseLabel: 'Purchase Standard Membership',
       price: '$50 / month',
       planId: '75972',
     },
     college: {
-      name: 'Student Age',
-      purchaseLabel: 'Purchase Student Membership',
+      name: 'Student Age (18-25)',
       price: '$20 / month',
       planId: '78970',
+    },
+    household: {
+      name: 'Household',
+      price: '$80 / month',
+      note: 'Two adults at one address. Add a third for $40 / month.',
+      planId: '146263',
     },
     perks: [
       '24/7 Access',
@@ -56,8 +60,7 @@ export const org = {
     portal: 'https://bozemanmakerspace.memberful.com/auth/sign_in',
   },
 
-  paypal:
-    'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XYC63Z2XATGJQ',
+  donate: 'https://donate.stripe.com/eVq9AUfuH5f11sp0IQaIM02',
   mailerlite:
     'https://dashboard.mailerlite.com/forms/12955/51324291966306002/share',
   facebook: 'https://www.facebook.com/bozemanmakerspace',

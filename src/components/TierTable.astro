@@ -1,34 +1,38 @@
 ---
 import { org } from '../data/org';
-import Button from './Button.astro';
+
+const { standard, college, household } = org.membership;
 
 const tiers = [
-  { ...org.membership.college, primary: false },
-  { ...org.membership.standard, primary: true },
+  { ...standard, note: undefined, primary: true },
+  { ...college, note: undefined, primary: false },
+  { ...household, primary: false },
 ];
 ---
 
-<div class="tier-table">
+<!-- Every plan has the same perks, so they are listed once. -->
+<ul class="perks">
+  {org.membership.perks.map((perk) => <li>{perk}</li>)}
+</ul>
+
+<ul class="tier-list">
   {
     tiers.map((tier) => (
-      <article class:list={['tier-row', tier.primary && 'tier-row--pick']}>
-        <div class="tier-row__head">
-          <h3 class="tier-row__name">{tier.name}</h3>
-          <p class="tier-row__price">{tier.price}</p>
-        </div>
-        <ul class="perks">
-          {org.membership.perks.map((perk) => (
-            <li>{perk}</li>
-          ))}
-        </ul>
-        <Button
+      <li>
+        <a
+          class:list={['tier-row', tier.primary && 'tier-row--pick']}
           href={`${org.memberful.checkout}${tier.planId}`}
-          variant={tier.primary ? 'primary' : undefined}
-          external
+          target="_blank"
+          rel="noopener"
         >
-          {tier.purchaseLabel}
-        </Button>
-      </article>
+          <span class="tier-row__name">{tier.name}</span>
+          <span class="tier-row__price">{tier.price}</span>
+          <span class="tier-row__arrow" aria-hidden="true">
+            ↗
+          </span>
+          {tier.note && <span class="tier-row__note">{tier.note}</span>}
+        </a>
+      </li>
     ))
   }
-</div>
+</ul>

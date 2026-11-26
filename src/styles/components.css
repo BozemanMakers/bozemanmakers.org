@@ -59,6 +59,8 @@ body { background: var(--paper); color: var(--ink); font-family: var(--font-body
   background: repeating-linear-gradient(-45deg, var(--brass) 0 0.625rem, var(--on-brass) 0.625rem 1.25rem);
 }
 .bzm-note__body { padding: var(--space-3); font-size: 0.9375rem; line-height: 1.5; }
+.bzm-note__body p { margin: 0; }
+.bzm-note__body strong + p { margin-top: var(--space-2); }
 .bzm-note__body strong { font-family: var(--font-display); font-size: 1.0625rem; display: block; margin-bottom: var(--space-1); }
 .bzm-note--stop .bzm-note__stripe { background: var(--stop); }
 .bzm-note--info .bzm-note__stripe { background: var(--gauge); }
